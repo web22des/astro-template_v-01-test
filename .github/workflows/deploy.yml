@@ -2,8 +2,26 @@ name: Deploy to GitHub Pages
 on:
     push:
         branches: [main]
+    workflow_dispatch:
+
 jobs:
+    check-branch:
+        runs-on: ubuntu-latest
+        outputs:
+            branch_exists: ${{ steps.check.outputs.exists }}
+        steps:
+            - uses: actions/checkout@v4
+            - name: Check gh-pages existence
+              id: check
+              run: |
+                  if git ls-remote --heads origin gh-pages | grep gh-pages; then
+                    echo "exists=true" >> $GITHUB_OUTPUT
+                  else
+                    echo "exists=false" >> $GITHUB_OUTPUT
+                  fi
+
     deploy:
+        needs: check-branch
         runs-on: ubuntu-latest
         permissions:
             contents: write
@@ -12,32 +30,46 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
+            # Автоматическое кеширование через setup-node (рекомендуемый способ)
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: 22.15.1
-                  cache: "npm" # Автоматическое кеширование npm (альтернатива actions/cache)
+                  cache: "npm" # Кеширует node_modules автоматически
 
-            # Опциональный ручной контроль кеша (если нужны дополнительные папки)
-            - name: Cache Astro build
+            # Дополнительное кеширование для Astro/Vite
+            - name: Cache build artifacts
               uses: actions/cache@v3
               with:
                   path: |
                       .astro/cache
-                      src/.astro
-                      src/.vite
-                  key: ${{ runner.os }}-astro-${{ hashFiles('package-lock.json') }}
+                      .vite/cache
+                  key: ${{ runner.os }}-build-${{ hashFiles('package-lock.json') }}
                   restore-keys: |
-                      ${{ runner.os }}-astro-
+                      ${{ runner.os }}-build-
 
             - name: Install dependencies
-              run: npm ci # Используем ci вместо install для точного соответствия package-lock.json
+              run: npm ci --prefer-offline # Использует кеш npm при наличии
 
             - name: Build
               run: npm run build
+
+            - name: Create gh-pages branch if missing
+              if: needs.check-branch.outputs.branch_exists == 'false'
+              run: |
+                  git checkout --orphan gh-pages
+                  git rm -rf .
+                  touch .nojekyll
+                  echo "Initial commit" > index.html
+                  git add .
+                  git commit -m "Init gh-pages"
+                  git push origin gh-pages
+                  git checkout main
 
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   publish_dir: ./dist
+                  publish_branch: gh-pages
+                  force_orphan: true
