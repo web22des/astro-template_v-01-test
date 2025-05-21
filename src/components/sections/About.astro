@@ -1,0 +1,56 @@
+---
+import { Image } from "astro:assets";
+
+import aboutImg from "@assets/images/content/bg-03.jpg";
+---
+<div class="about">
+    <div class="about__container">
+        <div class="about__col">
+            <h3 class="about__title">About title</h3>
+            <h3 class="about__subtitle">About subtitle</h3>
+        </div>
+        <div class="about__col">
+        </div>
+        <div class="about__wrap-img">
+            <Image class="about__img" src={aboutImg} alt="foto about" />
+        </div>
+    </div>
+</div>
+
+<style lang="scss">
+    @use "@styles/base/mixins/grid.scss" as *;
+.about {
+    &__container {
+            overflow: hidden;
+            @include grid-3-columns(24px);
+		}
+
+		&__col {
+            overflow: hidden;
+            //aspect-ratio: 4/3;
+		}
+
+		&__title {
+		}
+
+		&__subtitle {
+		}
+        &__wrap-img {
+  width: 100%;
+  aspect-ratio: 16/9; /* Желаемое соотношение */
+  display: flex;
+  background: var(--md-sys-color-on-tertiary); /* Фон на время загрузки */
+
+        }
+
+		&__img {
+ width: 100%;
+  height: 100%;
+  object-fit: cover; /* contain - не обрезает, cover - обрезает с заполнением */
+  object-position: center;
+		}
+}
+
+
+
+</style>

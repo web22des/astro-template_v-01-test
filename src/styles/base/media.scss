@@ -1,0 +1,55 @@
+@use "sass:math";
+@use "./mixins.scss" as mix; // Подключаем mixins с пространством имён
+@use "./_variables.scss" as var;
+// Ограничивающий контейнер ======================================================================================================================================================================================================================
+// Тип адаптива:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 1;
+/*
+(i) Стили будут применяться ко 
+всем классам содержащим *__container
+Например header__container, main__container и т.д.
+Снипет (HTML): cnt
+*/
+@if ($responsiveType==1) {
+    // Отзывчивая
+    [class*="__container"] {
+        @if (var.$maxWidthContainer>0) {
+            max-width: mix.rem(var.$maxWidthContainer);
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+        @if (var.$containerPadding>0) {
+            padding: 0 mix.rem(math.div(var.$containerPadding, 2));
+        }
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+} @else {
+    // По брейк-поинтам
+    [class*="__container"] {
+        margin: 0 auto;
+
+        @if (var.$maxWidthContainer>0) {
+            max-width: mix.rem(var.$maxWidthContainer);
+            box-sizing: border-box;
+        } @else {
+            @if (var.$containerPadding>0) {
+                padding: 0 mix.rem(math.div(var.$containerPadding, 2));
+            }
+        }
+        @media (max-width: $pc) {
+            max-width: mix.rem(970);
+        }
+        @media (max-width: $tablet) {
+            max-width: mix.rem(750);
+        }
+        @media (max-width: $mobile) {
+            max-width: none;
+            @if (var.$containerPadding>0 and var.$maxWidthContainer>0) {
+                padding: 0 mix.rem(math.div(var.$containerPadding, 2));
+            }
+        }
+    }
+}

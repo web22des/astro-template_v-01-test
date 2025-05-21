@@ -1,0 +1,96 @@
+---
+
+import ThemeToggle from "../ui/ThemeToggle.astro";
+import ContactsIcons from "../ui/social/ContactsIcons/ContactsIcons.astro";
+import NavMenu from "../ui/navigation/NavMenu.astro";
+import Logo from "../ui/Logo.astro";
+const menuItems = [
+    {
+        title: 'Главная',
+        url: '/'
+        },
+        {
+        title: 'Галерея',
+        url: '/gallery/'
+        },
+                {
+        title: 'Новости',
+        url: '/news/',
+        children: [
+            { title: 'Блог', url: '/posts/' },
+            { title: 'Новости', url: '/news/news-history' }
+        ]
+    },
+        {
+        title: 'Контакты',
+        url: '/contacts/'
+        },
+        
+];
+---
+<div class="header">
+    <div class="header__container">
+        <div class="header__body">
+            <div class="header__logo">
+                <Logo />
+            </div>
+            <div class="header__nav">
+                <NavMenu items={menuItems} />
+            </div>
+            <div class="header__contacts">
+                <ContactsIcons />
+            </div>
+            <div class="header__burger"></div>
+        </div>
+        <div class="header__footer">
+            <ThemeToggle initialTheme="light" />
+        </div>
+    </div>
+
+</div>
+
+<!--  -->
+<style lang="scss">
+.header {
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    &__container {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            
+        }
+        
+        &__body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+
+        }
+
+		&__logo {
+            //color: tomato;
+            
+		}
+
+		&__nav {
+            
+		}
+
+		&__contacts {
+		}
+
+        &__burger {
+            display: block;
+        }
+
+		&__footer {
+            display: flex;
+            justify-content: end;
+		}
+}
+
+</style>
+
+
+

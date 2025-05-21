@@ -1,0 +1,40 @@
+@use "@/styles/utils/_focus-visible" as *;
+
+.contacts-icons {
+    display: flex;
+    gap: 16px;
+    padding: var(--space-xs);
+
+    &__link {
+        //background: var(--md-sys-color-primary-container);// оаскоментировать для цветных иконок
+        color: var(--md-sys-color-on-primary-container);
+        transition: var(--transition-duration-slow); //transition: all 0.3s ease;
+        @include focus-visible;
+
+        &:hover {
+            //background: var(--md-sys-color-primary);// оаскоментировать для цветных иконок
+            transform: translateY(-2px);
+        }
+
+        //=== Стили для цветных иконок =====================================================================================================================================================
+
+        // &--phone {
+        //     /* Специфичные стили для телефона */
+        // }
+
+        // &--whatsapp {
+        //     background: #25D366;
+        //     color: white;
+        // }
+
+        // &--telegram {
+        //     background: #0088CC;
+        //     color: white;
+        // }
+    }
+    &__icon {
+        [class*="_icon-"] {
+            font-size: 32px;
+        }
+    }
+}

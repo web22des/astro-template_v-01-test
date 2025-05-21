@@ -1,0 +1,19 @@
+{
+  "name": "astro-template_v-01",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "fontface": "node config/scripts/fontface-generator.js",
+    "clean-vars": "node ./config/scripts/clean-unused-vars.js",
+    "dev": "astro dev --config config/astro.config.mjs",
+    "build": "astro build --config config/astro.config.mjs",
+    "preview": "astro preview --config config/astro.config.mjs"
+  },
+  "devDependencies": {
+    "astro": "^5.7.13",
+    "path": "^0.12.7",
+    "glob": "^11.0.2",
+    "postcss": "^8.5.3",
+    "sass-embedded": "^1.89.0"
+  }
+}

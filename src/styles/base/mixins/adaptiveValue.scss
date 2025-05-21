@@ -1,0 +1,33 @@
+@use "sass:math";
+@use "../mixins.scss" as mix;
+
+@mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: 1920, $widthTo: 320, $keepSize: 0) {
+    // Проверка на нулевые значения
+    @if ($startSize == 0) {
+        $startSize: 0.0001;
+    }
+    @if ($minSize == 0) {
+        $minSize: 0.0001;
+    }
+
+    // Конвертация в rem
+    $startSizeRem: if(math.is-unitless($startSize), mix.rem($startSize), $startSize);
+    $minSizeRem: if(math.is-unitless($minSize), mix.rem($minSize), $minSize);
+
+    // Расчет значений для clamp()
+    $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+    $yIntersection: -$widthTo * $slope + $minSize;
+    $fluidValue: #{math.div(math.round($yIntersection * 10000), 10000)} + vw;
+
+    // Основное свойство с clamp()
+    & {
+        #{$property}: clamp(#{$minSizeRem}, #{$fluidValue}, #{$startSizeRem});
+    }
+
+    // Fallback для старых браузеров
+    & {
+        @supports not (font-size: clamp(1rem, 1vw, 1rem)) {
+            #{$property}: calc(#{$minSizeRem} + (#{$startSize} - #{$minSize}) * ((100vw - #{mix.rem($widthTo)}) / #{math.div($widthFrom - $widthTo, 1)}));
+        }
+    }
+}

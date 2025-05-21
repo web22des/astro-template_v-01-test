@@ -1,0 +1,49 @@
+@use "../variables.scss" as *;
+
+// Миксин для грид-сетки
+@mixin grid-columns($columns, $gap: 0) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+
+    // Адаптация для планшетов
+    @media (max-width: $tablet) {
+        grid-template-columns: repeat(min($columns, 3), 1fr);
+    }
+
+    // Адаптация для мобильных (больших)
+    @media (max-width: $mobile) {
+        grid-template-columns: repeat(min($columns, 2), 1fr);
+    }
+
+    // Адаптация для маленьких мобильных
+    @media (max-width: $mobileSmall) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Готовые миксины для конкретного количества колонок
+@mixin grid-1-columns($gap: 0) {
+    @include grid-columns(1, $gap);
+}
+
+@mixin grid-2-columns($gap: 0) {
+    @include grid-columns(2, $gap);
+}
+
+@mixin grid-3-columns($gap: 0) {
+    @include grid-columns(3, $gap);
+}
+
+@mixin grid-4-columns($gap: 0) {
+    @include grid-columns(4, $gap);
+}
+
+@mixin grid-6-columns($gap: 0) {
+    @include grid-columns(6, $gap);
+}
+
+// Как использовать:
+// .element {
+//   @include grid-4-columns(24px); // 4 колонки с отступом 24px
+// }

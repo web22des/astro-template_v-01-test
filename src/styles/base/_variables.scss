@@ -1,0 +1,248 @@
+@use "./mixins.scss" as mix;
+//
+/* 
+thin - 100
+extralight - 200
+light - 300
+regular - 400 (normal)
+medium - 500
+semibold - 600
+bold - 700
+extrabold - 800
+black - 900
+*/
+:root {
+    // Шрифты
+    --font-family-base: "Roboto", system-ui, sans-serif; // Основной шрифт
+    --font-family-heading: "Roboto", system-ui, sans-serif; // Заголовки
+    --font-family-mono: "Roboto", system-ui, sans-serif; // Моноширинный шрифт
+    //--font-family-serif: "Georgia", serif; // Шрифт с засечками
+
+    // Размеры шрифтов
+    --font-size-base: mix.rem(16); // Базовый размер
+    --font-size-xs: 12px; // 12px
+    --font-size-sm: 14px; // 14px
+    --font-size-md: 1rem; // 16px
+    --font-size-lg: mix.rem(1.125); // 18px
+    --font-size-xl: 24px; // 20px
+    --font-size-xxl: 26px; // 24px
+    --font-size-xxxl: 36px; // 32px
+    --font-size-display: 64px; // 48px (для крупных заголовков)
+
+    // Начертания
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    //--font-weight-medium: 500;
+    //--font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    //--font-weight-black: 900;
+
+    // Межстрочные интервалы
+    --line-height-base: 1.3;
+    --line-height-heading: 1.2;
+    --line-height-tight: 1.1;
+    --line-height-loose: 1.7;
+
+    // Межбуквенные интервалы
+    --letter-spacing-tight: -0.02em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.05em;
+    // Основные цвета
+    --color-primary: #110e71; // Основной цвет (синий)
+    --color-primary-hover: #1d4ed8; // При наведении
+    --color-secondary: #6b7280; // Вторичный цвет (серый)
+    --color-success: #10b981; // Успех (зеленый)
+    --color-warning: #f59e0b; // Предупреждение (желтый)
+    --color-danger: #ef4444; // Ошибка (красный)
+    --color-info: #3b82f6; // Информация (голубой)
+
+    // Текст
+    --color-text: #e2dddd; // Основной текст
+    --color-icons-base: #c0b7e8; // Основной текст
+    --color-text-light: #7b7886; // Светлый текст
+    --color-text-inverted: #ffffff; // Текст на темном фоне
+    --color-heading: #111827; // Заголовки
+
+    // Фоны
+    --color-bg: #ffffff; // Основной фон
+    --color-bg-secondary: radial-gradient(2900.76% 50.13% at 50% 53.89%, rgba(58, 52, 86, 0.95) 0%, #211e2e 100%); // Вторичный фон
+    --color-bg-dark: #343045; // Темный фон, например border
+    --color-bg-fill: #c0b7e8; // Заливка, иконки и прочие мелкие детали
+    --color-bg-overlay: rgba(0, 0, 0, 0.5); // Затемнение
+    --color-bg-accent: #fff;
+
+    // Границы
+    //--color-border: var(--md-sys-color-primary); // Базовая граница
+    --color-border: #fff; // Базовая граница
+    --color-border-dark: #343045; // Темная граница
+    --color-border-light: #f3f4f6; // Светлая граница
+
+    // Состояния
+    --color-hover: #f3f4f6; // Фон при наведении
+    --color-active: #e5e7eb; // Фон при нажатии
+    --color-focus: rgba(59, 130, 246, 0.3); // Обводка при фокусе
+
+    --linear-gradient-base: linear-gradient(92deg, #c0b7e8 -1.02%, #8176af 36.25%);
+    --linear-gradient-primary: 92deg, #c0b7e8 -1.02%, #8176af 36.25%;
+    --linear-gradient-accent: linear-gradient(269deg, #c0b7e8 -3.72%, #8176af 82.17%);
+    //
+    --linear-gradient-line-base: linear-gradient(to right, #343045 0%, #343045 0%, #c0b7e8 34.9%, #8176af 68.75%, #343045 100%);
+    //
+    --radial-gradient-base: radial-gradient(50% 50% at 50% 50%, #403a5f 0%, #211e2e 100%);
+
+    // Базовый размер (1rem = 16px)
+    --space-unit: 1rem;
+
+    // Отступы  полностью соответствуют Matherial Theme 3
+    --space-xxs: mix, rem(4); // 4px
+    --space-xs: mix.rem(8); // 8px
+    --space-sm: mix.rem(12); // 12px
+    --space-md: mix.rem(16); // 16px
+    --space-lg: mix.rem(24); // 24px
+    --space-xl: mix.rem(32); // 32px
+    --space-xxl: mix.rem(48); // 48px
+    --space-xxxl: mix.rem(64); // 64px
+
+    // Радиусы скругления полностью соответствуют Matherial Theme 3
+    --border-radius-none: 0;
+    --border-radius-extra-small: mix.rem(4);
+    --border-radius-small: mix.rem(8);
+    --border-radius-medium: mix.rem(12);
+    --border-radius-large: mix.rem(16);
+    --border-radius-large-increased: mix.rem(20);
+    --border-radius-extra-large: mix.rem(28);
+    --border-radius-full: mix.rem(1000);
+
+    // Размеры компонентов
+    --header-height: 60px;
+    --sidebar-width: 240px;
+    --max-content-width: 1200px;
+    --container-padding: var(--space-md);
+
+    //===  Карточкм  =====================================================================================================================================================
+
+    --card-size-xs: 100px; /* extra-small → xs */
+    --card-size-sm: 150px; /* small → sm */
+    --card-size-md: mix.rem(310); /* medium → md */
+    --card-size-lg: 500px; /* large → lg */
+    --card-size-xl: 600px; /* extra-large → xl */
+
+    //===  Иконки  =====================================================================================================================================================
+
+    /* Стандартные размеры */
+    --icon-size-extra-small: mix.rem(12); /* Для мелких элементов (например, иконки в тексте) */
+    --icon-size-small: mix.rem(24); /* Компактные иконки (кнопки, меню) */
+    --icon-size-medium: mix.rem(32); /* Стандартный размер (чаще всего используется) */
+    --icon-size-large: mix.rem(40); /* Крупные иконки (заголовки, важные действия) */
+    --icon-size-extra-large: mix.rem(96); /* Очень крупные (например, аватарки) */
+
+    /* Дополнительно: */
+    --icon-size-auto: auto; /* Для случаев, когда размер наследуется */
+    --icon-size-full: 100%; /* Для адаптивных иконок внутри контейнера */
+    // закругления
+    --icon-radius-sm: 4px;
+    --icon-radius-full: 50%;
+
+    //===  Картинки  =====================================================================================================================================================
+
+    --img-ratio-square: 1/1; /* Квадрат */
+    --img-ratio-landscape: 16/9; /* Горизонтальные (видео, баннеры) */
+    --img-ratio-portrait: 9/16; /* Вертикальные (мобильные фото) */
+    --img-ratio-custom: 4/3; /* Универсальный (например, товары) */
+    /* Ширина */
+    --img-width-auto: auto;
+    --img-width-full: 100%;
+    --img-width-xs: 120px; /* Миниатюры */
+    --img-width-sm: 240px; /* Карточки товаров */
+    --img-width-md: 400px; /* Контентные изображения */
+    --img-width-lg: 600px; /* Большие баннеры */
+    --img-width-xl: 800px; /* Полноразмерные фото */
+
+    /* Высота */
+    --img-height-auto: auto;
+    --img-height-full: 100%;
+    --img-height-xs: 80px;
+    --img-height-sm: 160px;
+    --img-height-md: 300px;
+    --img-height-lg: 450px;
+    --img-height-xl: 600px;
+
+    /* Минимальные/максимальные размеры */
+    --img-min-width: 100px;
+    --img-max-width: 100%;
+    --img-min-height: 50px;
+    --img-max-height: 100vh;
+
+    //===  Тени  =====================================================================================================================================================
+
+    --shadow-none: none;
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    --shadow-md: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); //использую
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+    //===  Анимация  =====================================================================================================================================================
+
+    --transition-duration-fast: 0.15s;
+    --transition-duration-normal: 0.3s;
+    --transition-duration-slow: 0.5s;
+    --transition-timing-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-timing-bounce: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+    //===  Z-индексы  =====================================================================================================================================================
+
+    --z-index-base: 0;
+    --z-index-dropdown: 100;
+    --z-index-sticky: 200;
+    --z-index-modal: 300;
+    --z-index-overlay: 400;
+    --z-index-tooltip: 500;
+    --z-index-toast: 600;
+
+    //===  Брейкпоинты  =====================================================================================================================================================
+
+    $breakpoint-sm-mobile: mix.em(479.98);
+    $breakpoint-mobile: mix.em(575.98);
+    $breakpoint-tablet: mix.em(767.98);
+    $breakpoint-desktop: mix.em(991.98);
+    $breakpoint-large: mix.em(1199.98);
+    $breakpoint-xlarge: mix.em(1399.98);
+    // Прочие переменные
+    // Максимальная и минимальная ширина контента
+    --max-width-container: 1200px;
+    --min-width-container: 320px;
+
+    // Минимальная и максимальная высота
+    --min-height-screen: 100vh;
+    --max-height-modal: 90vh;
+
+    // Прозрачность
+    --opacity-disabled: 0.5;
+    --opacity-hover: 0.8;
+}
+// НАСТРОЙКИ ===============================================================================================================================================================================================================================================================================================
+// Минимальная ширина страницы
+$minWidth: 320;
+// Ширина полотна (макета)
+$maxWidth: 1920;
+// Ширина ограничивающего контейнера (0 = нет ограничения)
+$maxWidthContainer: 1272;
+// Общий отступ у контейнера
+// (30 = по 15px слева и справа, 0 = нет отступа)
+$containerPadding: 24;
+
+// Ширина срабатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Брейк-поинты
+$pc: mix.em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$tablet: mix.em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
+$mobile: mix.em(767.98); // Телефоны L
+$mobileSmall: mix.em(479.98); // Телефоны S
+
+// Тип адаптива:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+//$responsiveType: 1;

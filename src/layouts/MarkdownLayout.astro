@@ -1,0 +1,26 @@
+---
+// Mar
+import Header from "../components/partials/Header.astro";
+import Footer from "../components/partials/Footer.astro";
+const {frontmatter} = Astro.props;
+---
+<html lang="ru" class="light">
+	<head>
+		<meta charset="utf-8" />
+				<!-- Базовые иконки -->
+        <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
+
+        <!-- Адаптивные иконки -->
+        <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+		<title>{frontmatter.title}</title>
+	</head>
+<body class="wrapper">
+	<Header />
+		<article class="markdown__container page">
+		<slot /> <!-- Сюда вставится содержимое .md -->
+		</article>
+	<Footer />
+</body>
+</html>

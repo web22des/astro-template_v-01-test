@@ -1,0 +1,64 @@
+//
+// @use "./variables.scss" as var;
+// @use "./mixins.scss" as mix;
+// @use "./mixins/grid.scss" as grid;
+//
+body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    background-color: var(--md-sys-color-on-primary);
+    color: var(--md-sys-color-primary);
+    line-height: var(--line-height-base);
+    transition: background-color 0.3s ease, color 0.3s ease; // Плавное переключение темы
+}
+// Обертка для прижания подвала книзу
+.wrapper {
+    min-height: 100vh; /* Минимальная высота = высота экрана */
+    display: flex;
+    flex-direction: column;
+}
+// Контент страницы
+.page {
+    flex: 1; /* Контент занимает всё свободное пространство */
+}
+
+/* ===== clases ====== */
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+.section-padding {
+}
+
+.section-title {
+}
+.section-subtitle {
+}
+.section-title-wrap {
+}
+
+// технический клас для применения в разработке. для временного скрытия блоков
+._none {
+    display: none;
+}
+// Новые классы
+.page-accent {
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+//
+//========================================================================================================================================================

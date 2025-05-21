@@ -1,0 +1,7 @@
+---
+import "@/components/ui/icon/icon.scss";
+// components/Icon.astro
+const { name, class: className } = Astro.props;
+---
+
+<span class={`_icon-${name} ${className || ''}`} aria-hidden="true"></span>

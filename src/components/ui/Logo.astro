@@ -1,0 +1,27 @@
+---
+const basePath = import.meta.env.BASE_URL;
+const theme = typeof document !== 'undefined' 
+  ? document.documentElement.getAttribute('data-theme') || 'light'
+  : 'light';
+
+const logoPath = `${basePath}icons/logo-${theme}.svg`;
+// Важно: без слеша после basePath, так как он уже включает его
+---
+
+<img src={logoPath} alt="Логотип" />
+
+<script is:inline>
+// Автоматическое обновление пути при смене темы
+const updateLogo = () => {
+  const theme = document.documentElement.getAttribute('data-theme') || 'light';
+  const base = '${import.meta.env.BASE_URL}';
+  document.querySelectorAll('[data-logo]').forEach(logo => {
+    logo.src = `${base}icons/logo-${theme}.svg`;
+  });
+};
+
+new MutationObserver(updateLogo).observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['data-theme']
+});
+</script>

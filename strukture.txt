@@ -1,0 +1,123 @@
+📦astro-template_v-01
+ ┣ 📂.astro
+ ┃ ┣ 📂collections
+ ┃ ┣ 📜content-assets.mjs
+ ┃ ┣ 📜content-modules.mjs
+ ┃ ┣ 📜data-store.json
+ ┃ ┣ 📜settings.json
+ ┃ ┗ 📜types.d.ts
+ ┣ 📂.github
+ ┃ ┗ 📂workflows
+ ┃ ┃ ┗ 📜deploy.yml
+ ┣ 📂.vscode
+ ┃ ┣ 📜extensions.json
+ ┃ ┗ 📜launch.json
+ ┣ 📂config
+ ┃ ┣ 📂scripts
+ ┃ ┃ ┣ 📜clean-unused-vars.js
+ ┃ ┃ ┗ 📜fontface-generator.js
+ ┃ ┣ 📜astro.config.mjs
+ ┃ ┣ 📜postcss.config.js
+ ┃ ┗ 📜vite.config.js
+ ┣ 📂public
+ ┃ ┣ 📂favicon
+ ┃ ┃ ┣ 📜android-chrome-192x192.png
+ ┃ ┃ ┣ 📜android-chrome-512x512.png
+ ┃ ┃ ┣ 📜apple-touch-icon.png
+ ┃ ┃ ┣ 📜browserconfig.xml
+ ┃ ┃ ┣ 📜favicon-16x16.png
+ ┃ ┃ ┣ 📜favicon-32x32.png
+ ┃ ┃ ┣ 📜favicon.ico
+ ┃ ┃ ┣ 📜mstile-144x144.png
+ ┃ ┃ ┣ 📜mstile-150x150.png
+ ┃ ┃ ┣ 📜mstile-310x150.png
+ ┃ ┃ ┣ 📜mstile-310x310.png
+ ┃ ┃ ┣ 📜mstile-70x70.png
+ ┃ ┃ ┣ 📜safari-pinned-tab.svg
+ ┃ ┃ ┗ 📜site.webmanifest
+ ┃ ┣ 📂fonts
+ ┃ ┃ ┣ 📜icomoon.woff2
+ ┃ ┃ ┣ 📜Roboto-Bold.woff2
+ ┃ ┃ ┣ 📜Roboto-Medium.woff2
+ ┃ ┃ ┗ 📜Roboto-Regular.woff2
+ ┃ ┣ 📂icons
+ ┃ ┃ ┣ 📜logo-dark.svg
+ ┃ ┃ ┣ 📜logo-light.svg
+ ┃ ┃ ┗ 📜logo.svg
+ ┃ ┗ 📂images
+ ┃ ┃ ┗ 📜bg-03.jpg
+ ┣ 📂src
+ ┃ ┣ 📂assets
+ ┃ ┃ ┗ 📂images
+ ┃ ┃ ┃ ┗ 📂content
+ ┃ ┃ ┃ ┃ ┣ 📜bg-01.jpg
+ ┃ ┃ ┃ ┃ ┣ 📜bg-02.jpg
+ ┃ ┃ ┃ ┃ ┗ 📜bg-03.jpg
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂partials
+ ┃ ┃ ┃ ┣ 📜Footer.astro
+ ┃ ┃ ┃ ┗ 📜Header.astro
+ ┃ ┃ ┣ 📂sections
+ ┃ ┃ ┃ ┗ 📜About.astro
+ ┃ ┃ ┗ 📂ui
+ ┃ ┃ ┃ ┣ 📂icon
+ ┃ ┃ ┃ ┃ ┣ 📜Icon.astro
+ ┃ ┃ ┃ ┃ ┗ 📜icon.scss
+ ┃ ┃ ┃ ┣ 📂navigation
+ ┃ ┃ ┃ ┃ ┗ 📜NavMenu.astro
+ ┃ ┃ ┃ ┣ 📂social
+ ┃ ┃ ┃ ┃ ┗ 📂ContactsIcons
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜ContactsIcons.astro
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜_contacts-icon.scss
+ ┃ ┃ ┃ ┣ 📜BurgerButton.astro
+ ┃ ┃ ┃ ┣ 📜Button.astro
+ ┃ ┃ ┃ ┣ 📜Card.astro
+ ┃ ┃ ┃ ┣ 📜Link.astro
+ ┃ ┃ ┃ ┣ 📜Logo.astro
+ ┃ ┃ ┃ ┗ 📜ThemeToggle.astro
+ ┃ ┣ 📂layouts
+ ┃ ┃ ┣ 📜MarkdownLayout.astro
+ ┃ ┃ ┗ 📜PageLayout.astro
+ ┃ ┣ 📂pages
+ ┃ ┃ ┣ 📂posts
+ ┃ ┃ ┃ ┣ 📜post01.md
+ ┃ ┃ ┃ ┣ 📜post02.md
+ ┃ ┃ ┃ ┣ 📜post03.md
+ ┃ ┃ ┃ ┗ 📜post04.md
+ ┃ ┃ ┣ 📜contacts.astro
+ ┃ ┃ ┣ 📜index.astro
+ ┃ ┃ ┗ 📜posts.astro
+ ┃ ┗ 📂styles
+ ┃ ┃ ┣ 📂base
+ ┃ ┃ ┃ ┣ 📂mixins
+ ┃ ┃ ┃ ┃ ┣ 📜adaptiveValue.scss
+ ┃ ┃ ┃ ┃ ┗ 📜grid.scss
+ ┃ ┃ ┃ ┣ 📜base.scss
+ ┃ ┃ ┃ ┣ 📜common.scss
+ ┃ ┃ ┃ ┣ 📜media.scss
+ ┃ ┃ ┃ ┣ 📜mixins.scss
+ ┃ ┃ ┃ ┣ 📜null.scss
+ ┃ ┃ ┃ ┗ 📜_variables.scss
+ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┗ 📜about.scss
+ ┃ ┃ ┣ 📂fonts
+ ┃ ┃ ┃ ┣ 📜fonts.scss
+ ┃ ┃ ┃ ┗ 📜icons.scss
+ ┃ ┃ ┣ 📂themes
+ ┃ ┃ ┃ ┗ 📂v_01
+ ┃ ┃ ┃ ┃ ┣ 📜M3.json
+ ┃ ┃ ┃ ┃ ┣ 📜_dark.scss
+ ┃ ┃ ┃ ┃ ┗ 📜_light.scss
+ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┗ 📜_focus-visible.scss
+ ┃ ┃ ┣ 📜global.scss
+ ┃ ┃ ┣ 📜main.scss
+ ┃ ┃ ┗ 📜markdown-base.scss
+ ┣ 📜.gitignore
+ ┣ 📜env.d.ts
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜PR.txt
+ ┣ 📜README.md
+ ┣ 📜strukture.txt
+ ┗ 📜tsconfig.json

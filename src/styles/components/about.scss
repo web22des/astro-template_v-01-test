@@ -1,0 +1,22 @@
+@use "../base/mixins.scss" as *;
+
+.about {
+    &__container {
+        background: var(--color-bg-fill);
+        //@include grid-2-columns(24px);
+    }
+
+    &__col {
+        border: 1px solid #000;
+    }
+
+    &__title {
+        font-size: rem(24);
+    }
+
+    &__subtitle {
+    }
+
+    &__img {
+    }
+}

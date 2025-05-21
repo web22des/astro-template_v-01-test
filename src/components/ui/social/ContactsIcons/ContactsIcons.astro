@@ -1,0 +1,57 @@
+---
+import "./_contacts-icon.scss";
+
+const PhoneUser = "71234567890";
+const WhatsappUser = "71234567890";
+const TelegramUser = "username";
+---
+
+<div class="contacts-icons">
+  <!-- Телефон -->
+  <!--  Добавляем роль button для явного указания интерактивности -->
+  <!-- Убедимся, что элемент фокусируем -->
+  <a 
+    href={`tel:+${PhoneUser}`}
+    class="contacts-icons__link contacts-icons__link--phone"
+    aria-label="Позвонить по телефону"
+    role="button"
+    tabindex="0"
+  >
+    <span class="contacts-icons__icon" aria-hidden="true">
+      <span class="_icon-phone"></span>
+    </span>
+    <span class="visually-hidden">{PhoneUser}</span>
+  </a>
+
+  <!-- WhatsApp -->
+  <a 
+    href={`https://wa.me/${WhatsappUser}`}
+    class="contacts-icons__link contacts-icons__link--whatsapp"
+    aria-label="Написать в WhatsApp"
+    target="_blank"
+    rel="noopener noreferrer"
+    role="button"
+    tabindex="0"
+  >
+    <span class="contacts-icons__icon" aria-hidden="true">
+      <span class="_icon-whatsapp"></span>
+    </span>
+    <span class="visually-hidden">WhatsApp</span>
+  </a>
+
+  <!-- Telegram -->
+  <a 
+    href={`https://t.me/${TelegramUser}`}
+    class="contacts-icons__link contacts-icons__link--telegram"
+    aria-label="Написать в Telegram"
+    target="_blank"
+    rel="noopener noreferrer"
+    role="button"
+    tabindex="0"
+  >
+    <span class="contacts-icons__icon" aria-hidden="true">
+      <span class="_icon-telegram"></span>
+    </span>
+    <span class="visually-hidden">Telegram</span>
+  </a>
+</div>

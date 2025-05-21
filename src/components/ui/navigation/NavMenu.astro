@@ -1,0 +1,130 @@
+---
+// components/NavMenu.astro
+import Icon from '../icon/Icon.astro';
+import Link from '../Link.astro'; // Ваш компонент ссылки
+
+interface NavItem {
+    title: string;
+    url: string;
+    children?: NavItem[];
+}
+
+const { items = [] } = Astro.props;
+---
+
+<nav class="nav-menu">
+  <ul class="nav-menu__list">
+    {
+      items.map((item: NavItem) => (
+        <li class={`nav-menu__item ${item.children ? 'has-dropdown' : ''}`}>
+          <Link
+            href={item.url}
+            class="nav-menu__link"
+            aria-expanded={item.children ? 'false' : null}
+            aria-haspopup={item.children ? 'true' : null}
+          >
+            {item.title}
+            {item.children && (
+              <Icon name="chevron-down" class="nav-menu__icon" />
+            )}
+          </Link>
+          
+          {item.children && (
+            <ul class="nav-menu__submenu">
+              {item.children.map((subItem: NavItem) => (
+                <li class="nav-menu__subitem">
+                  <Link href={subItem.url} class="nav-menu__sublink">
+                    {subItem.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style lang="scss">
+@use '@styles/utils/_focus-visible.scss' as *;
+
+.nav-menu {
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__item {
+    position: relative;
+    
+    &.has-dropdown:hover .nav-menu__submenu,
+    &.has-dropdown:focus-within .nav-menu__submenu {
+      display: block;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: var(--md-sys-color-on-surface);
+    text-decoration: none;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: var(--md-sys-color-surface-container-highest);
+    }
+    
+    @include focus-visible;
+  }
+
+  &__submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: var(--md-sys-color-surface);
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    box-shadow: var(--md-sys-elevation-level1);
+    padding: 0.5rem 0;
+    list-style: none;
+    z-index: 10;
+  }
+
+  &__subitem {
+    &:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+  }
+
+  &__sublink {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--md-sys-color-on-surface);
+    text-decoration: none;
+    
+    &:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+    
+    @include focus-visible;
+  }
+
+  &__icon {
+    transition: transform 0.2s ease;
+    font-size: 0.8em;
+    
+    .has-dropdown:hover &,
+    .has-dropdown:focus-within & {
+      transform: rotate(180deg);
+    }
+  }
+}
+</style>

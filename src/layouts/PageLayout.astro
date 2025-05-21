@@ -1,0 +1,42 @@
+---
+import "@styles/main.scss";
+
+import Header from "../components/partials/Header.astro";
+import Footer from "../components/partials/Footer.astro";
+// Импортируем глобальные стили MD
+//import '@astrojs/markdown-remark/markdown.css';
+
+
+const { title = 'Главная' } = Astro.props;
+
+
+---
+
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- Добавляем meta-тег для системной темы -->
+		<meta name="color-scheme" content="light dark">
+		<meta name="theme-color" content="var(--md-sys-color-background)">
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Базовые иконки -->
+        <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
+
+        <!-- Адаптивные иконки -->
+        <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+		
+		<title>{title}</title>
+	</head>
+	<body class="wrapper">
+		<Header />
+		<main class="page">
+			<slot/>
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -1,0 +1,119 @@
+---
+// src/components/ThemeToggle.astro
+export const prerender = false; // Отключаем prerender для этого компонента
+
+interface Props {
+  initialTheme?: 'light' | 'dark';
+}
+
+const { initialTheme = 'light' } = Astro.props;
+---
+
+<style lang="scss">
+@use '@styles/utils/_focus-visible.scss' as *;
+
+.theme-toggle {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+
+  &__input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+
+    &:focus-visible + .theme-toggle__slider {
+      outline: 2px solid var(--md-sys-color-primary);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 3px rgba(var(--md-sys-color-primary-rgb), 0.3);
+    }
+
+    &:checked + .theme-toggle__slider {
+      background-color: var(--md-sys-color-primary-container);
+      
+      &::before {
+        transform: translateX(30px);
+        content: "\e9d6"; // Иконка луны
+        color: var(--md-sys-color-on-primary-container);
+      }
+    }
+  }
+
+  &__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--md-sys-color-primary-container);
+    transition: .4s;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+
+    &::before {
+      position: absolute;
+      content: "\e9d4"; // Иконка солнца
+      font-family: 'icomoon' !important;
+      height: 24px;
+      width: 24px;
+      left: 3px;
+      bottom: 3px;
+      background-color: transparent;
+      transition: .4s;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--md-sys-color-on-primary-container);
+    }
+  }
+}
+</style>
+
+<div class="theme-toggle">
+  <input 
+    type="checkbox" 
+    id="theme-toggle" 
+    class="theme-toggle__input"
+    checked={initialTheme === 'dark'}
+  >
+  <label for="theme-toggle" class="theme-toggle__slider"></label>
+</div>
+
+<script is:inline>
+(function() {
+  // Функция для синхронизации темы
+  function syncTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (systemDark ? 'dark' : 'light');
+    
+    // Устанавливаем атрибуты
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    document.getElementById('theme-toggle').checked = currentTheme === 'dark';
+  }
+
+  // Инициализация
+  syncTheme();
+
+  // Обработчик переключения
+  document.getElementById('theme-toggle').addEventListener('change', function(e) {
+    const theme = e.target.checked ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  });
+
+  // Следим за изменениями системной темы
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
+})();
+</script>
