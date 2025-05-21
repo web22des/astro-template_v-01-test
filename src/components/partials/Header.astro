@@ -40,7 +40,9 @@ const menuItems = [
             <div class="header__contacts">
                 <ContactsIcons />
             </div>
-            <div class="header__burger"></div>
+            <div class="header__burger">
+                <span id="burgerButton" class="_icon-switch"></span>
+            </div>
         </div>
         <div class="header__footer">
             <ThemeToggle initialTheme="light" />
@@ -49,48 +51,23 @@ const menuItems = [
 
 </div>
 
-<!--  -->
-<style lang="scss">
-.header {
-    background-color: var(--md-sys-color-surface-container-high);
-    color: var(--md-sys-color-on-surface);
-    &__container {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            
-        }
-        
-        &__body {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
+<script>
+  const burgerButton = document.getElementById('burgerButton');
+  const navMenu = document.querySelector('.header__nav');
+  const icon = document.querySelector('._icon-switch');
 
-        }
-
-		&__logo {
-            //color: tomato;
-            
-		}
-
-		&__nav {
-            
-		}
-
-		&__contacts {
-		}
-
-        &__burger {
-            display: block;
-        }
-
-		&__footer {
-            display: flex;
-            justify-content: end;
-		}
-}
-
-</style>
+  burgerButton.addEventListener('click', () => {
+    // Переключаем класс 'active' у навигации
+    navMenu.classList.toggle('active');
+    
+    // Меняем цвет иконки
+    if (navMenu.classList.contains('active')) {
+      icon.style.color = 'var(--md-sys-color-error)';
+    } else {
+      icon.style.color = ''; // Возвращаем исходный цвет
+    }
+  });
+</script>
 
 
 

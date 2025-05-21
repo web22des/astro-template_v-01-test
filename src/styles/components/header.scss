@@ -1,0 +1,68 @@
+@use "@styles/base/mixins.scss" as mix;
+@use "@styles/base/variables.scss" as vars;
+
+.header {
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    &__container {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    &__body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    &__logo {
+        //color: tomato;
+    }
+
+    &__nav {
+        @media (max-width: mix.em(950)) {
+            position: absolute;
+            top: 0;
+            left: -130%;
+            padding: 150px 100px 50px;
+            min-height: 100vh;
+            background: var(--md-sys-color-on-tertiary);
+            z-index: -1;
+            transition: all ease 0.7s;
+            &.active {
+                left: 0;
+            }
+        }
+        @media (max-width: vars.$mobile) {
+            width: 100%;
+            padding-right: 24px;
+            padding-left: 24px;
+        }
+    }
+
+    &__contacts {
+        @media (max-width: mix.em(950)) {
+            display: none;
+        }
+    }
+
+    &__burger {
+        display: none;
+        font-size: var(--font-size-xxxl);
+        color: inherit;
+        @media (max-width: mix.em(950)) {
+            display: block;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: end;
+    }
+
+    @media (max-width: mix.em(950)) {
+        position: relative;
+        z-index: 100;
+    }
+}

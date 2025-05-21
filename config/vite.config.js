@@ -19,6 +19,7 @@ export default {
         },
     },
     css: {
+        devSourcemap: true, // Включает source maps для CSS
         //postcss: path.resolve(__dirname, "../../config/postcss.config.js"),
         // preprocessorOptions: {
         //     scss: {

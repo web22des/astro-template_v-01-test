@@ -11,3 +11,6 @@
 
 //@use "./base/mixins/grid.scss";
 //@use "./base/mixins.scss" as *; // Подключение всех миксинов и функций
+
+@use "../styles/components/header.scss";
+@use "../styles/components/nav-menu.scss";
