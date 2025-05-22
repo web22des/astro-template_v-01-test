@@ -3,13 +3,13 @@
 import { Image } from "astro:assets";
 
 import HeroImg from "@assets/images/content/hero-01.png";
-
+const heroTitleMobile = "";
 ---
 <div class="hero">
     <div class="hero__container">
         <div class="hero__header">
             <h1 class="hero__title">Сайты в ваш бизнес</h1>
-            <h2 class="hero__subtitle">Уникальные продающие сайты без использования конструкторов</h2>
+            <h2 class="hero__subtitle"><span class="hero__subtitle--mobile">Уникальные <span class="accent">продающие сайты</span></span> без использования конструкторов</h2>
         </div>
         <div class="hero__body">
             <div class="hero__info">
@@ -22,11 +22,13 @@ import HeroImg from "@assets/images/content/hero-01.png";
                     <li class="hero__info-item"> <span class="_icon-checkbox-checked"></span>Индивидуальный</li>
                 </ul>
                 <div class="hero__info-wrap-btn">
-                    <button type="submit" class="button button--fill">Предварительный расчёт за 15 минут</button>
-                    <span class="hero__info-text"></span>
+                    <button type="submit" class="button">Узнать стоимость</button>
+                    <span class="hero__info-text">Предварительный расчёт за 15 минут</span>
                 </div>
             </div>
-            <div class="hero__wrap-img"></div>
+            <div class="hero__wrap-img">
+                <Image class="hero__img" src={HeroImg} alt="главное изображение страницы" />
+            </div>
         </div>
     </div>
 </div>

@@ -65,7 +65,7 @@ $desktop: map.get($breakpoints, "xxlarge");
     width: 100%;
     max-width: rem-em.rem($max-width-container);
     margin: 0 auto;
-    padding: 0 rem-em.rem(math.div($container-padding, 2));
+    padding: var(--space-xxl) rem-em.rem(math.div($container-padding, 2));
     box-sizing: border-box;
 
     // Вариант с брейкпоинтами (если нужно)
