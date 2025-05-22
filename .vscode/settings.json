@@ -1,0 +1,5 @@
+{
+    "astro.validate.enable": false,
+    "javascript.validate.enable": false, // Отключает проверку JS
+    "typescript.validate.enable": false // Отключает проверку TS
+}
