@@ -1,55 +1,94 @@
 @use "sass:math";
-@use "./mixins.scss" as mix; // Подключаем mixins с пространством имён
-@use "./_variables.scss" as var;
-// Ограничивающий контейнер ======================================================================================================================================================================================================================
-// Тип адаптива:
-// 1 = отзывчивость (у контейнера нет брейкпоинтов),
-// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
-$responsiveType: 1;
-/*
-(i) Стили будут применяться ко 
-всем классам содержащим *__container
-Например header__container, main__container и т.д.
-Снипет (HTML): cnt
-*/
-@if ($responsiveType==1) {
-    // Отзывчивая
-    [class*="__container"] {
-        @if (var.$maxWidthContainer>0) {
-            max-width: mix.rem(var.$maxWidthContainer);
-            box-sizing: border-box;
-            margin: 0 auto;
-        }
-        @if (var.$containerPadding>0) {
-            padding: 0 mix.rem(math.div(var.$containerPadding, 2));
-        }
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-} @else {
-    // По брейк-поинтам
-    [class*="__container"] {
-        margin: 0 auto;
+@use "sass:map";
+@use "./mixins/_rem-em.scss" as rem-em;
 
-        @if (var.$maxWidthContainer>0) {
-            max-width: mix.rem(var.$maxWidthContainer);
-            box-sizing: border-box;
-        } @else {
-            @if (var.$containerPadding>0) {
-                padding: 0 mix.rem(math.div(var.$containerPadding, 2));
-            }
+// ======================================================
+// 1. Базовые настройки адаптива
+// ======================================================
+$min-width: 320;
+$max-width: 1920;
+$max-width-container: 1272;
+$container-padding: 24;
+$responsive-type: 1; // 1 = отзывчивый контейнер, 2 = по брейкпоинтам
+// Рассчитанные значения
+$container-width: $max-width-container + $container-padding;
+
+// ======================================================
+// 2. Брейкпоинты (в em для лучшей доступности)
+// ======================================================
+$breakpoints: (
+    "xsmall": rem-em.em(479.98),
+    "small": rem-em.em(575.98),
+    "medium": rem-em.em(767.98),
+    "large": rem-em.em(991.98),
+    "xlarge": rem-em.em(1199.98),
+    "xxlarge": rem-em.em(1399.98),
+    "container": rem-em.em($container-width),
+);
+
+// Алиасы для удобства
+$mobile-small: map.get($breakpoints, "xsmall");
+$mobile: map.get($breakpoints, "medium");
+$tablet: map.get($breakpoints, "large");
+$desktop: map.get($breakpoints, "xxlarge");
+
+// ======================================================
+// 3. Миксины для медиазапросов
+// ======================================================
+// Миксин для медиазапросов "max-width"
+// @param {string} $breakpoint - Ключ из $breakpoints
+@mixin max-width($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (max-width: map.get($breakpoints, $breakpoint)) {
+            @content;
         }
-        @media (max-width: $pc) {
-            max-width: mix.rem(970);
+    } @else {
+        @error "Неизвестный брейкпоинт '#{$breakpoint}'. Доступные значения: #{map-keys($breakpoints)}";
+    }
+}
+
+/// Миксин для медиазапросов "min-width"
+@mixin min-width($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: map.get($breakpoints, $breakpoint) + 0.02) {
+            @content;
         }
-        @media (max-width: $tablet) {
-            max-width: mix.rem(750);
+    } @else {
+        @error "Неизвестный брейкпоинт '#{$breakpoint}'";
+    }
+}
+
+// ======================================================
+// 4. Стили контейнера (адаптивные варианты)
+// ======================================================
+[class*="__container"] {
+    width: 100%;
+    max-width: rem-em.rem($max-width-container);
+    margin: 0 auto;
+    padding: 0 rem-em.rem(math.div($container-padding, 2));
+    box-sizing: border-box;
+
+    // Вариант с брейкпоинтами (если нужно)
+    @if $responsive-type == 2 {
+        @include max-width("xxlarge") {
+            max-width: rem-em.rem(1200);
         }
-        @media (max-width: $mobile) {
+        @include max-width("large") {
+            max-width: rem-em.rem(970);
+        }
+        @include max-width("medium") {
+            max-width: rem-em.rem(750);
+        }
+        @include max-width("small") {
             max-width: none;
-            @if (var.$containerPadding>0 and var.$maxWidthContainer>0) {
-                padding: 0 mix.rem(math.div(var.$containerPadding, 2));
-            }
         }
     }
+}
+
+// ======================================================
+// 5. Дополнительные утилиты
+// ======================================================
+/// Миксин для адаптивного свойства (clamp)
+@mixin responsive-property($property, $min-size, $max-size) {
+    #{$property}: clamp(rem-em.rem($min-size), #{math.div($max-size - $min-size, $max-width - $min-width) * 100}vw, rem-em.rem($max-size));
 }

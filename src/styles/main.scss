@@ -1,6 +1,5 @@
-@use "sass:math"; // Подключение модуля math
 @use "./base/null.scss";
-@use "./base/_variables.scss";
+
 @use "./base/media.scss";
 @use "./themes/v_01/_dark.scss";
 @use "./themes/v_01/_light.scss";
@@ -14,3 +13,4 @@
 
 @use "../styles/components/header.scss";
 @use "../styles/components/nav-menu.scss";
+@use "../styles/components/hero.scss";

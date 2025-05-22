@@ -1,15 +1,15 @@
 //
-// @use "./variables.scss" as var;
+//@use "./variables.scss" as *;
 // @use "./mixins.scss" as mix;
 // @use "./mixins/grid.scss" as grid;
 //
 body {
     font-family: var(--font-family-base);
     font-size: var(--font-size-base);
-    background-color: var(--md-sys-color-on-primary);
-    color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-secondary);
     line-height: var(--line-height-base);
-    transition: background-color 0.3s ease, color 0.3s ease; // Плавное переключение темы
+    transition: background-color 0.7s ease, color 0.7s ease; // Плавное переключение темы
 }
 // Обертка для прижания подвала книзу
 .wrapper {

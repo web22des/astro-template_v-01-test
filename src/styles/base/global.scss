@@ -1,17 +1,5 @@
-@use "./mixins.scss" as mix;
-//
-/* 
-thin - 100
-extralight - 200
-light - 300
-regular - 400 (normal)
-medium - 500
-semibold - 600
-bold - 700
-extrabold - 800
-black - 900
-*/
-:root {
+@use "../styles/base/mixins/_rem-em.scss" as rem-em;
+
     // Шрифты
     --font-family-base: "Roboto", system-ui, sans-serif; // Основной шрифт
     --font-family-heading: "Roboto", system-ui, sans-serif; // Заголовки
@@ -27,7 +15,7 @@ black - 900
     --font-size-xl: 24px; // 20px
     --font-size-xxl: 26px; // 24px
     --font-size-xxxl: 36px; // 32px
-    --font-size-display: 64px; // 48px (для крупных заголовков)
+    --font-size-display: #[rem-em.rem(94)]; // 48px (для крупных заголовков)
 
     // Начертания
     --font-weight-light: 300;
@@ -175,13 +163,17 @@ black - 900
 
     //===  Тени  =====================================================================================================================================================
 
-    --shadow-none: none;
-    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    --shadow-md: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); //использую
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    --box-shadow-Light-01: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    --box-shadow-Light-02: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+    --box-shadow-Light-03: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+    --box-shadow-Light-04: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+    --box-shadow-Light-05: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3); /*  */
+    //
+    --box-shadow-Dark-01: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    --box-shadow-Dark-02: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    --box-shadow-Dark-03: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+    --box-shadow-Dark-04: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+    --box-shadow-Dark-05: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
 
     //===  Анимация  =====================================================================================================================================================
 
@@ -201,14 +193,6 @@ black - 900
     --z-index-tooltip: 500;
     --z-index-toast: 600;
 
-    //===  Брейкпоинты  =====================================================================================================================================================
-
-    $breakpoint-sm-mobile: mix.em(479.98);
-    $breakpoint-mobile: mix.em(575.98);
-    $breakpoint-tablet: mix.em(767.98);
-    $breakpoint-desktop: mix.em(991.98);
-    $breakpoint-large: mix.em(1199.98);
-    $breakpoint-xlarge: mix.em(1399.98);
     // Прочие переменные
     // Максимальная и минимальная ширина контента
     --max-width-container: 1200px;
@@ -222,27 +206,3 @@ black - 900
     --opacity-disabled: 0.5;
     --opacity-hover: 0.8;
 }
-// НАСТРОЙКИ ===============================================================================================================================================================================================================================================================================================
-// Минимальная ширина страницы
-$minWidth: 320;
-// Ширина полотна (макета)
-$maxWidth: 1920;
-// Ширина ограничивающего контейнера (0 = нет ограничения)
-$maxWidthContainer: 1272;
-// Общий отступ у контейнера
-// (30 = по 15px слева и справа, 0 = нет отступа)
-$containerPadding: 24;
-
-// Ширина срабатывания первого брейкпоинта
-$containerWidth: $maxWidthContainer + $containerPadding;
-
-// Брейк-поинты
-$pc: mix.em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
-$tablet: mix.em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
-$mobile: mix.em(767.98); // Телефоны L
-$mobileSmall: mix.em(479.98); // Телефоны S
-
-// Тип адаптива:
-// 1 = отзывчивость (у контейнера нет брейкпоинтов),
-// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
-//$responsiveType: 1;

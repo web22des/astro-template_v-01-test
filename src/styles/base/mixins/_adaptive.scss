@@ -1,0 +1,6 @@
+@use "sass:math";
+@use "../variables" as *; // Подключение глобальных переменных
+
+@mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: $containerWidth, $widthTo: $minWidth, $keepSize: 0) {
+    // ... (текущая реализация)
+}
