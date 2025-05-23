@@ -1,0 +1,20 @@
+// title-section
+.title-sections {
+    &__wrap {
+        padding: var(--space-md);
+        border-left: var(--border-width-heavy) solid var(--md-sys-color-primary);
+    }
+
+    &__title {
+        color: var(--md-sys-color-primary);
+        font-size: var(--font-size-xxxl);
+        text-shadow: var(--text-shadow-Light-03);
+        margin-bottom: var(--space-sm);
+    }
+
+    &__subtitle {
+        color: var(--md--sys-color-secondary);
+        text-shadow: var(--text-shadow-Light-02);
+        font-size: var(--font-size-xxl);
+    }
+}

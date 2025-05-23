@@ -27,21 +27,16 @@
 
     @media (max-width: rem-em.em(767)) {
         --font-size-display: #{rem-em.rem(56)};
+        --font-size-xxxl: #{rem-em.rem(32)};
+        --font-size-xxl: #{rem-em.rem(24)};
     }
     // small
     @media (max-width: rem-em.em(480)) {
-        //--font-size-xxxl: #{rem-em.rem(36)};
         --font-size-display: #{rem-em.rem(36)};
+        --font-size-xxxl: #{rem-em.rem(28)};
+        --font-size-xxl: #{rem-em.rem(20)};
     }
-    // --font-size-base: #{rem-em.rem(16)};
-    // --font-size-xs: #{rem-em.rem(12)};
-    // --font-size-sm: #{rem-em.rem(14)};
-    // --font-size-md: #{rem-em.rem(16)};
-    // --font-size-lg: #{rem-em.rem(18)};
-    // --font-size-xl: #{rem-em.rem(24)};
-    // --font-size-xxl: #{rem-em.rem(26)};
-    // --font-size-xxxl: #{rem-em.rem(36)};
-    // --font-size-display: #{rem-em.rem(94)};
+
     // Начертания
     --font-weight-light: 300;
     --font-weight-regular: 400;
@@ -115,6 +110,13 @@
     --space-xxl: #{rem-em.rem(48)};
     --space-xxxl: #{rem-em.rem(64)};
 
+    @media (max-width: media.$mobile-small) {
+        --space-md: #{rem-em.rem(8)};
+    }
+    @media (max-width: media.$mobile) {
+        --space-md: #{rem-em.rem(12)};
+    }
+
     @media (max-width: media.$mobile) {
         --space-xxl: #{rem-em.rem(36)};
     }
@@ -132,6 +134,14 @@
     // Специальные случаи
     --space-icon-text: #{rem-em.rem(8)}; // Отступ между иконкой и текстом
     --space-grid-gap: var(--space-lg); // Отступы в grid-сетках
+
+    /* Border Width Variables */
+    --border-width-none: 0;
+    --border-width-hairline: 0.5px;
+    --border-width-thin: 1px;
+    --border-width-medium: 2px;
+    --border-width-thick: 3px;
+    --border-width-heavy: 4px;
 
     // Радиусы скругления
     --border-radius-none: 0;
@@ -204,6 +214,8 @@
     --box-shadow-Dark-05: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
 
     // Тени текст
+    --text-shadow-Light-02: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 2px 6px rgba(0, 0, 0, 0.15);
+    --text-shadow-Light-03: 0px 4px 8px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
     --text-shadow-Light-04: 0px 6px 10px rgba(0, 0, 0, 0.15), 0px 2px 3px rgba(0, 0, 0, 0.3);
 
     // Анимация
