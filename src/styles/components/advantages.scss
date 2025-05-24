@@ -1,1 +1,11 @@
 // advantages
+.advantages {
+    &__container {
+    }
+
+    &__card-wrap {
+        :nth-child(even) {
+            border: 1px solid #000;
+        }
+    }
+}

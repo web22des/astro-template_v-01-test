@@ -1,0 +1,13 @@
+---
+
+const {cardTitle, cardIcon, cardContent} = Astro.props;
+---
+
+<div class="advantages-card">
+    <div class="advantages-card__header">
+        <h3 class="advantages-card__title">{cardTitle}</h3>
+        <span class={cardIcon}></span>
+    </div>
+    <p class="advantages-card__content">{cardContent}</p>
+</div>
+

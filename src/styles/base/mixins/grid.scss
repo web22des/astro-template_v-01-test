@@ -1,4 +1,4 @@
-//@use "../variables.scss" as *;
+@use "../media.scss" as *;
 
 // Миксин для грид-сетки
 @mixin grid-columns($columns, $gap: 0) {
@@ -17,7 +17,7 @@
     }
 
     // Адаптация для маленьких мобильных
-    @media (max-width: $mobileSmall) {
+    @media (max-width: $mobile-small) {
         grid-template-columns: 1fr;
     }
 }

@@ -17,3 +17,42 @@
 @use "../styles/components/hero.scss";
 @use "../styles/components/advantages.scss";
 @use "../styles/components/title-section.scss";
+@use "../styles/components/advantages-card.scss";
+@use "../styles/components/website-types.scss";
+
+//========================================================================================================================================================
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    &__image {
+        flex: 1;
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+
+    &__content {
+        flex: 1;
+        padding: 2rem;
+    }
+
+    // Для нечетных карточек (по умолчанию - фото слева)
+    &:nth-child(even) {
+        flex-direction: row;
+        background: tomato;
+    }
+}

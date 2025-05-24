@@ -1,0 +1,21 @@
+.advantages-card {
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: var(--space-icon-text);
+        justify-content: start;
+    }
+
+    &__title {
+        color: var(--md-sys-color-primary);
+        font-size: var(--font-size-xxxl); //36
+    }
+
+    &__content {
+        color: var(--md-sys-color-secondary);
+        padding: var(--space-md) var(--space-xxl);
+    }
+    [class*="_icon-"] {
+        font-size: var(--icon-size-medium); // 32px
+    }
+}
