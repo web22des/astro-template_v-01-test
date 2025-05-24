@@ -1,0 +1,1 @@
+const c=document.getElementById("burgerButton"),e=document.querySelector(".header__nav"),t=document.querySelector("._icon-switch");c.addEventListener("click",()=>{e.classList.toggle("active"),e.classList.contains("active")?t.style.color="var(--md-sys-color-error)":t.style.color=""});
