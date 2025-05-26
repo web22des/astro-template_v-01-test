@@ -6,8 +6,8 @@
 body {
     font-family: var(--font-family-base);
     font-size: var(--font-size-base);
-    background-color: var(--md-sys-color-primary-container);
-    color: var(--md-sys-color-secondary);
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
     line-height: var(--line-height-base);
     transition: background-color 0.7s ease, color 0.7s ease; // Плавное переключение темы
 }

@@ -1,9 +1,13 @@
 ---
+import TitleSections from "../ui/TitleSections.astro";
 
+const titleSection = "Виды сайтов";
+const subTitleSection = "Подберите для себя именно тот вариант который больше подходит под поставленную задачу. Если затрудняетесь я обязательно проконсультирую и помогу сделать вам правильный выбор";
 ---
 
 <div class="website-types">
     <div class="website-types__container">
+        <TitleSections titleSection={titleSection} subTitleSection={subTitleSection} />
         <div class="website-types__card">
             <div class="website-types__wrap-images">
                 <img class="website-types__images" src="" alt="foto">

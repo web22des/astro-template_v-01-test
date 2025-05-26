@@ -1,0 +1,48 @@
+// services.scss
+@use "../base/mixins/grid.scss" as grid;
+.services {
+    &__container {
+        @include grid.grid-3-columns(var(--space-grid-gap));
+    }
+
+    &__card {
+        background: var(--md-sys-color-surface-container-low);
+        box-shadow: var(--box-shadow-Light-01);
+        border-radius: var(--border-radius-medium);
+        min-width: 300px;
+        width: 100%;
+    }
+
+    &__card-title {
+        padding: var(--space-all-card);
+        font-size: var(--font-size-xxl);
+        position: relative;
+        &::before {
+            content: "";
+            position: absolute;
+        }
+    }
+
+    &__card-body {
+        padding: var(--space-all-card);
+    }
+
+    &__card-images {
+        aspect-ratio: 3/2;
+        background: var(--md-sys-color-tertiary);
+        margin-bottom: var(--space-x-card);
+    }
+
+    &__card-img {
+    }
+
+    &__card-content {
+        margin-bottom: var(--space-x-card);
+    }
+
+    &__card-text {
+    }
+
+    &__card-footer {
+    }
+}

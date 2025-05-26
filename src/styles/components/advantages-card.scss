@@ -1,21 +1,36 @@
+@use "../base/media.scss" as media;
+
 .advantages-card {
     &__header {
-        display: flex;
-        align-items: center;
-        gap: var(--space-icon-text);
-        justify-content: start;
     }
 
     &__title {
         color: var(--md-sys-color-primary);
-        font-size: var(--font-size-xxxl); //36
+        font-size: var(--font-size-xxl); //26
     }
 
     &__content {
         color: var(--md-sys-color-secondary);
-        padding: var(--space-md) var(--space-xxl);
+        //padding: var(--space-md) var(--space-xxl);
+        padding-top: var(--space-y-card);
+        padding-bottom: var(--space-y-card);
     }
     [class*="_icon-"] {
         font-size: var(--icon-size-medium); // 32px
+        padding-left: 8px;
+        @media (max-width: media.$mobile-small) {
+            display: none;
+            text-align: center;
+        }
+    }
+    &:nth-child(odd) {
+        text-align: end;
+        @media (max-width: media.$mobile-small) {
+            text-align: center;
+        }
+    }
+
+    @media (max-width: media.$mobile-small) {
+        text-align: center;
     }
 }

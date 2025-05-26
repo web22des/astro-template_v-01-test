@@ -1,8 +1,14 @@
 // title-section
+@use "../base/media.scss" as media;
 .title-sections {
     &__wrap {
         padding: var(--space-md);
         border-left: var(--border-width-heavy) solid var(--md-sys-color-primary);
+        margin-bottom: var(--space-xl);
+        @media (max-width: media.$mobile-small) {
+            border-left: none;
+            text-align: center;
+        }
     }
 
     &__title {

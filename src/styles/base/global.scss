@@ -120,6 +120,10 @@
     @media (max-width: media.$mobile) {
         --space-xxl: #{rem-em.rem(36)};
     }
+    @media (max-width: media.$tablet) {
+        --space-lg: #{rem-em.rem(12)};
+    }
+
     // Компонентные отступы
     --space-y-button: #{rem-em.rem(16)}; // вертикаль (кнопки)
     --space-x-button: #{rem-em.rem(24)}; // горизонталь (кнопки)
@@ -130,6 +134,11 @@
 
     --space-input: var(--space-sm); // 12px (поля ввода)
     --space-section: var(--space-lg); // 24px (секции)
+
+    @media (max-width: media.$mobile-small) {
+        --space-all-card: #{rem-em.rem(8)}; // 16px (карточки)
+        --space-y-card: #{rem-em.rem(8)}; // 16px (карточки)
+    }
 
     // Специальные случаи
     --space-icon-text: #{rem-em.rem(8)}; // Отступ между иконкой и текстом
@@ -176,6 +185,9 @@
     --icon-size-full: 100%;
     --icon-radius-sm: #{rem-em.rem(4)};
     --icon-radius-full: 50%;
+    @media (max-width: media.$mobile) {
+        --icon-size-medium: #{rem-em.rem(24)};
+    }
 
     // Картинки
     --img-ratio-square: 1/1;

@@ -7,19 +7,19 @@
     gap: $gap;
 
     // Адаптация для планшетов
-    @media (max-width: $tablet) {
-        grid-template-columns: repeat(min($columns, 3), 1fr);
+    @media (max-width: $notebook-small) {
+        grid-template-columns: repeat(min($columns, 2), 1fr);
     }
 
     // Адаптация для мобильных (больших)
     @media (max-width: $mobile) {
-        grid-template-columns: repeat(min($columns, 2), 1fr);
+        grid-template-columns: repeat(min($columns, 1), 1fr);
     }
 
     // Адаптация для маленьких мобильных
-    @media (max-width: $mobile-small) {
-        grid-template-columns: 1fr;
-    }
+    // @media (max-width: $mobile-small) {
+    //     grid-template-columns: 1fr;
+    // }
 }
 
 // Готовые миксины для конкретного количества колонок

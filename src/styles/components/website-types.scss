@@ -1,4 +1,5 @@
 @use "../base/mixins/grid.scss" as grid;
+@use "../base/media.scss" as media;
 
 .website-types {
     padding-top: var(--space-xxl);
@@ -7,19 +8,26 @@
     }
 
     &__card {
-        min-height: 386px;
-        height: 100%;
         display: flex;
-        gap: 24px;
+        gap: var(--space-grid-gap);
         margin-bottom: 24px;
         // Исправленный селектор для четных карточек
         &:nth-child(even) {
             flex-direction: row-reverse; // Добавлен reverse для изменения порядка
+            @media (max-width: media.$tablet) {
+                flex-direction: column-reverse;
+            }
+        }
+        @media (max-width: media.$tablet) {
+            flex-direction: column-reverse;
         }
     }
 
     &__wrap-images {
-        flex: 1;
+        aspect-ratio: 3/2;
+        width: 100%;
+
+        //flex: 1;
         background: var(--md-sys-color-on-tertiary);
     }
 
@@ -27,16 +35,24 @@
     }
 
     &__content {
-        flex: 1;
+        //flex: 1;
+        width: 100%;
+        max-height: 260px;
+        overflow-y: auto;
+        @media (max-width: media.$mobile) {
+            text-align: center;
+        }
     }
 
     &__title {
         color: var(--md-sys-color-primary);
-        font-size: var(--font-size-xxxl);
+        font-size: var(--font-size-xxl);
         margin-bottom: var(--space-lg);
+        position: sticky;
     }
 
     &__paragraph {
+        text-align: start;
     }
 
     &__text {

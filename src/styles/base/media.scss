@@ -7,7 +7,7 @@
 // ======================================================
 $min-width: 320;
 $max-width: 1920;
-$max-width-container: 1272;
+$max-width-container: 1128;
 $container-padding: 24;
 $responsive-type: 1; // 1 = отзывчивый контейнер, 2 = по брейкпоинтам
 // Рассчитанные значения
@@ -28,8 +28,10 @@ $breakpoints: (
 
 // Алиасы для удобства
 $mobile-small: map.get($breakpoints, "xsmall");
-$mobile: map.get($breakpoints, "medium");
-$tablet: map.get($breakpoints, "large");
+$mobile: map.get($breakpoints, "small");
+$tablet: map.get($breakpoints, "medium");
+$large: map.get($breakpoints, "large");
+$notebook-small: map.get($breakpoints, "xlarge");
 $desktop: map.get($breakpoints, "xxlarge");
 
 // ======================================================
@@ -67,6 +69,7 @@ $desktop: map.get($breakpoints, "xxlarge");
     margin: 0 auto;
     padding: var(--space-xxl) rem-em.rem(math.div($container-padding, 2));
     box-sizing: border-box;
+    //overflow: hidden;
 
     // Вариант с брейкпоинтами (если нужно)
     @if $responsive-type == 2 {
