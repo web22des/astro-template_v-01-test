@@ -1,10 +1,12 @@
 ---
 // Mar
+import "@styles/main.scss";
 import Header from "../components/partials/Header.astro";
 import Footer from "../components/partials/Footer.astro";
 const {frontmatter} = Astro.props;
+
 ---
-<html lang="ru" class="light">
+<html lang="ru" class="dark">
 	<head>
 		<meta charset="utf-8" />
 				<!-- Базовые иконки -->
@@ -14,13 +16,17 @@ const {frontmatter} = Astro.props;
         <!-- Адаптивные иконки -->
         <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
 		<title>{frontmatter.title}</title>
 	</head>
 <body class="wrapper">
 	<Header />
-		<article class="markdown__container page">
-		<slot /> <!-- Сюда вставится содержимое .md -->
+		<article class="markdown-body">
+			<div class="markdown__container">
+				<slot /> <!-- Сюда вставится содержимое .md -->
+			</div>
 		</article>
 	<Footer />
 </body>
 </html>
+

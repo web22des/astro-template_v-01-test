@@ -1,0 +1,64 @@
+@use "../base/mixins/grid.scss" as grid;
+@use "../base/mixins/counter" as counter;
+
+.development-process {
+    &__container {
+    }
+
+    &__card-grup {
+        @include grid.grid-3-columns(var(--space-grid-gap));
+        //
+        @include counter.counter($name: "dev-process", $format: decimal-leading-zero, $start: 1, $delimiter: " ");
+    }
+
+    &__card {
+        overflow: hidden;
+        padding: var(--space-all-card);
+        box-shadow: var(--box-shadow-Light-03);
+        border-radius: var(--border-radius-medium);
+        position: relative;
+        &::before {
+            bottom: 8px;
+            left: 12px;
+            font-weight: var(--font-weight-bold);
+            color: var(--md-sys-color-on-secondary);
+        }
+        // Треугольник
+    }
+
+    &__card-title {
+        font-size: var(--font-size-xxl);
+        color: var(--md-sys-color-on-surface-variant);
+        margin-bottom: var(--space-md);
+    }
+
+    &__card-text {
+        color: var(--md-sys-color-secondary);
+        margin-bottom: var(--space-xl);
+        min-height: 106px;
+    }
+
+    &__card-footer {
+        text-align: end;
+        position: relative;
+        &::before {
+            content: "";
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            background: var(--md-sys-color-on-secondary-fixed);
+            rotate: -45deg;
+            left: -66px;
+            bottom: -66px;
+            z-index: -1;
+        }
+    }
+}
+// .list {
+//   @include counter(item-counter, 1, 1);
+
+//   li::before {
+//     content: counter(item-counter) ". ";
+//     margin-right: 0.5rem;
+//   }
+// }

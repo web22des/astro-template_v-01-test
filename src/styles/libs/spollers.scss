@@ -1,0 +1,60 @@
+@use "../base/media.scss" as media;
+
+// Базовые стили спойлеров
+// Сниппет (HTML): spoller
+
+// Блок со спойлерами
+.spollers {
+    display: grid;
+    gap: 12px;
+
+    //border: 1px solid #000;
+    width: 100%;
+}
+// Спойлер
+.spollers__item {
+    display: block;
+
+    //font-size: rem(20);
+}
+// Заголовок спойлера
+.spollers__title {
+    width: 100%;
+    cursor: default;
+    text-align: left;
+    padding: var(--space-all-card);
+    margin-bottom: 12px;
+    font-size: var(--font-size-xxl);
+    color: var(--md-sys-color-on-surface-variant);
+    background: var(-md-sys-color-surface-container-low);
+    box-shadow: var(--box-shadow-Light-01);
+    border-radius: var(--border-radius-medium);
+    position: relative;
+
+    ._spoller-init & {
+        cursor: pointer;
+        &::after {
+            font-family: "icomoon";
+            content: "\e968";
+            position: absolute;
+            right: 10px;
+            transition: transform 0.5s ease 0s;
+        }
+
+        &._spoller-active {
+            &::after {
+                transform: rotate(90deg);
+            }
+        }
+    }
+}
+// Контент спойлера
+.spollers__body {
+    background-color: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+    //padding-top: var(--space-xl);
+    padding: var(--space-all-card);
+}
+.spollers__body-text {
+    color: var(--md-sys-color-secondary);
+    //margin-bottom: var(--space-sm);
+}

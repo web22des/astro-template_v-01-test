@@ -1,0 +1,43 @@
+/// Универсальный счётчик с ведущими нулями
+/// @param {String} $name - Уникальное имя счётчика
+/// @param {String} $format - Формат вывода
+/// @param {Number} $start [1] - С какого числа начинать
+/// @param {String} $delimiter ['. '] - Разделитель после цифры
+@mixin counter($name: item, $format, $start: 1, $delimiter: ". ") {
+    list-style: none;
+    counter-reset: #{$name} #{$start - 1}; // Начинаем с ($start - 1), так как increment добавит +1
+
+    > * {
+        counter-increment: #{$name};
+        position: relative; // Для позиционирования ::before
+
+        &::before {
+            content: counter(#{$name}, #{$format}) #{$delimiter};
+            position: absolute;
+        }
+    }
+}
+
+// Как использовать:
+// Сделать импорт миксина:
+// @use "../base/mixins/counter" as counter;
+// @include counter.counter(
+//$name: "dev-process",
+//$format: decimal-leading-zero,
+//$start: 1,
+//$delimiter: " ");
+
+// Параметры миксина:
+
+// $name - уникальное имя счетчика (например, reviews, steps)
+// $format - стиль нумерации (decimal, leading-zero, lower-roman)
+// $start - с какого числа начинать
+// $delimiter - разделитель после цифры
+
+// Cтандартные стили CSS-счетчиков:
+// decimal - 1, 2, 3
+// decimal-leading-zero - 01, 02, 03
+// lower-roman - i, ii, iii
+// upper-roman - I, II, III
+// lower-alpha - a, b, c
+// upper-alpha - A, B, C

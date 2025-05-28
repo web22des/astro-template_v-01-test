@@ -8,9 +8,10 @@
 @use "./base/common.scss";
 @use "./components/button.scss";
 //========================================================================================================================================================
+//Вспомогательные инструменты нужное раскоментировать
+@use "../styles/libs/spollers.scss";
 
-//@use "./base/mixins/grid.scss";
-//@use "./base/mixins.scss" as *; // Подключение всех миксинов и функций
+//========================================================================================================================================================
 
 @use "../styles/components/header.scss";
 @use "../styles/components/nav-menu.scss";
@@ -20,6 +21,8 @@
 @use "../styles/components/advantages-card.scss";
 @use "../styles/components/website-types.scss";
 @use "../styles/components/services.scss";
+@use "../styles/components/development-process.scss";
+//@use "../styles/ui/accordion.scss";
 
 //========================================================================================================================================================
 .cards {

@@ -2,6 +2,8 @@
 @use "../base/mixins/grid.scss" as grid;
 .services {
     &__container {
+    }
+    &__card-grup {
         @include grid.grid-3-columns(var(--space-grid-gap));
     }
 

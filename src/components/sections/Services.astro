@@ -1,90 +1,96 @@
 ---
+import TitleSections from "../ui/TitleSections.astro";
 
+const titleSection = "Услуги, нацеленные на результат";
+const subTitleSection = "Обладая опытом  в своей области, я стремлюсь к эффективной и быстрой реализации проектов. Мой приоритет - это скорость выполнения без потери качества и внимания к деталям. Каждый проект будет выполнен с максимальной тщательностью и в срок.";
 ---
 
 <div class="services">
     <div class="services__container">
-        <div class="services__card">
-            <h3 class="services__card-title">Дизайн</h3>
-            <div class="services__card-body">
-                <div class="services__card-images">
-                    <img class="services__card-img" src="" alt="foto services">
-                </div>
-                <div class="services__card-content">
-                    <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
-                </div>
-                <div class="services__card-footer">
-                    <button type="submit" class="button button--text">Подробнее</button>
-                </div>
-            </div>
-        </div>
-        <div class="services__card">
-            <h3 class="services__card-title">Верстка</h3>
-            <div class="services__card-body">
-                <div class="services__card-images">
-                    <img class="services__card-img" src="" alt="foto services">
-                </div>
-                <div class="services__card-content">
-                    <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
-                </div>
-                <div class="services__card-footer">
-                    <button type="submit" class="button button--text">Подробнее</button>
+        <TitleSections titleSection={titleSection} subTitleSection={subTitleSection} />
+        <div class="services__card-grup">
+            <div class="services__card">
+                <h3 class="services__card-title">Дизайн</h3>
+                <div class="services__card-body">
+                    <div class="services__card-images">
+                        <img class="services__card-img" src="" alt="foto services">
+                    </div>
+                    <div class="services__card-content">
+                        <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
+                    </div>
+                    <div class="services__card-footer">
+                        <button type="submit" class="button button--text">Подробнее</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="services__card">
-            <h3 class="services__card-title">Интеграция CMS</h3>
-            <div class="services__card-body">
-                <div class="services__card-images">
-                    <img class="services__card-img" src="" alt="foto services">
-                </div>
-                <div class="services__card-content">
-                    <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
-                </div>
-                <div class="services__card-footer">
-                    <button type="submit" class="button button--text">Подробнее</button>
-                </div>
-            </div>
-        </div>
-        <div class="services__card">
-            <h3 class="services__card-title">Контент менеджмент</h3>
-            <div class="services__card-body">
-                <div class="services__card-images">
-                    <img class="services__card-img" src="" alt="foto services">
-                </div>
-                <div class="services__card-content">
-                    <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
-                </div>
-                <div class="services__card-footer">
-                    <button type="submit" class="button button--text">Подробнее</button>
+            <div class="services__card">
+                <h3 class="services__card-title">Верстка</h3>
+                <div class="services__card-body">
+                    <div class="services__card-images">
+                        <img class="services__card-img" src="" alt="foto services">
+                    </div>
+                    <div class="services__card-content">
+                        <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
+                    </div>
+                    <div class="services__card-footer">
+                        <button type="submit" class="button button--text">Подробнее</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="services__card">
-            <h3 class="services__card-title">Публикация в сети</h3>
-            <div class="services__card-body">
-                <div class="services__card-images">
-                    <img class="services__card-img" src="" alt="foto services">
-                </div>
-                <div class="services__card-content">
-                    <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
-                </div>
-                <div class="services__card-footer">
-                    <button type="submit" class="button button--text">Подробнее</button>
+            <div class="services__card">
+                <h3 class="services__card-title">Интеграция CMS</h3>
+                <div class="services__card-body">
+                    <div class="services__card-images">
+                        <img class="services__card-img" src="" alt="foto services">
+                    </div>
+                    <div class="services__card-content">
+                        <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
+                    </div>
+                    <div class="services__card-footer">
+                        <button type="submit" class="button button--text">Подробнее</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="services__card">
-            <h3 class="services__card-title">Поддержка</h3>
-            <div class="services__card-body">
-                <div class="services__card-images">
-                    <img class="services__card-img" src="" alt="foto services">
+            <div class="services__card">
+                <h3 class="services__card-title">Контент менеджмент</h3>
+                <div class="services__card-body">
+                    <div class="services__card-images">
+                        <img class="services__card-img" src="" alt="foto services">
+                    </div>
+                    <div class="services__card-content">
+                        <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
+                    </div>
+                    <div class="services__card-footer">
+                        <button type="submit" class="button button--text">Подробнее</button>
+                    </div>
                 </div>
-                <div class="services__card-content">
-                    <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
+            </div>
+            <div class="services__card">
+                <h3 class="services__card-title">Публикация в сети</h3>
+                <div class="services__card-body">
+                    <div class="services__card-images">
+                        <img class="services__card-img" src="" alt="foto services">
+                    </div>
+                    <div class="services__card-content">
+                        <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
+                    </div>
+                    <div class="services__card-footer">
+                        <button type="submit" class="button button--text">Подробнее</button>
+                    </div>
                 </div>
-                <div class="services__card-footer">
-                    <button type="submit" class="button button--text">Подробнее</button>
+            </div>
+            <div class="services__card">
+                <h3 class="services__card-title">Поддержка</h3>
+                <div class="services__card-body">
+                    <div class="services__card-images">
+                        <img class="services__card-img" src="" alt="foto services">
+                    </div>
+                    <div class="services__card-content">
+                        <p class="services__card-text">Создам уникальный и привлекательный визуальный облик вашего сайта, обеспечивая его функциональность и удобство исполь...</p>
+                    </div>
+                    <div class="services__card-footer">
+                        <button type="submit" class="button button--text">Подробнее</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,78 @@
+---
+import TitleSections from "../ui/TitleSections.astro";
+
+const titleSection = "Процесс разработки";
+const subTitleSection = "Весь цикл разработки, с нуля и ло результата, включает в себя всего девять шагов";
+
+---
+
+<div class="development-process">
+    <div class="development-process__container">
+        <TitleSections titleSection={titleSection} subTitleSection={subTitleSection} />
+        <ol class="development-process__card-grup">
+            <li class="development-process__card">
+                <h3 class="development-process__card-title">Обсуждение</h3>
+                <p class="development-process__card-text">Во время обсуждения  оговаривается каким будет дизайн, функциональность, структура и содержание сайта. Так же заказчику желательно заполнить бриф.</p>
+                <div class="development-process__card-footer">
+                    <button type="submit" class="button button--text">Подробнее</button>
+                </div>
+            </li>
+            <li class="development-process__card">
+                <h3 class="development-process__card-title">Изучение</h3>
+                <p class="development-process__card-text">Анализ рынка и конкурентов - это важный шаг в разработке сайта. Разработчик исследует рынок, изучает конкурентов и определяет их сильные и слабые стороны. </p>
+                <div class="development-process__card-footer">
+                    <button type="submit" class="button button--text">Подробнее</button>
+                </div>
+            </li>
+            <li class="development-process__card">
+                <h3 class="development-process__card-title">Дизайн-макет</h3>
+                <p class="development-process__card-text">Макет сайта используеться для получения обратной связи от заказчика и внесения необходимых изменений до создания окончательного дизайна.</p>
+                <div class="development-process__card-footer">
+                    <button type="submit" class="button button--text">Подробнее</button>
+                </div>
+            </li>
+            <li class="development-process__card">
+                <h3 class="development-process__card-title">Дизайн главной</h3>
+                <p class="development-process__card-text">Далее создается дизайн первой страницы, подбирается цветовая палитра, стили шрифтов, различные элементы, которые будут использоваться на всех страницах</p>
+                <div class="development-process__card-footer">
+                    <button type="submit" class="button button--text">Подробнее</button>
+                </div>
+            </li>
+            <li class="development-process__card">
+                <h3 class="development-process__card-title">Дизайн всего сайта</h3>
+                <p class="development-process__card-text">Дизайн остальных страниц, повторяет стили главной. Основная цель это поддерживать стиль на всех страницах сайта одинаковым. Это очень важно.</p>
+                <div class="development-process__card-footer">
+                    <button type="submit" class="button button--text">Подробнее</button>
+                </div>
+            </li>
+            <li class="development-process__card">
+                <h3 class="development-process__card-title">Верстка</h3>
+                <p class="development-process__card-text">После подтверждения заказчиком дизайна сайта начинается его верстка, которая должна смотреться одинаково хорошо на всех устройствах и браузерах.</p>
+                <div class="development-process__card-footer">
+                    <button type="submit" class="button button--text">Подробнее</button>
+                </div>
+            </li>
+            <li class="development-process__card">
+                <h3 class="development-process__card-title">Интеграция</h3>
+                <p class="development-process__card-text">Если есть необходимость, сайт интегрируется на CMS, для упрощения добавления на сайт новых статей или новостей.</p>
+                <div class="development-process__card-footer">
+                    <button type="submit" class="button button--text">Подробнее</button>
+                </div>
+            </li>
+            <li class="development-process__card">
+                <h3 class="development-process__card-title">Публикация</h3>
+                <p class="development-process__card-text">Публикация включает в себя подключение и приобретение домена, выбор провайдера, исходя из потребностей сайта. Подбирается более оптимальное решение.</p>
+                <div class="development-process__card-footer">
+                    <button type="submit" class="button button--text">Подробнее</button>
+                </div>
+            </li>
+            <li class="development-process__card">
+                <h3 class="development-process__card-title">Аналитика</h3>
+                <p class="development-process__card-text">Подключаются отдельные скрипты, для последующей аналитики сайта и мониторинга переходов по ссылкам. Для дальнейшего анализа и улучшения поведения.</p>
+                <div class="development-process__card-footer">
+                    <button type="submit" class="button button--text">Подробнее</button>
+                </div>
+            </li>
+        </ol>
+    </div>
+</div>

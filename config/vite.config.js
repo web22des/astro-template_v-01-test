@@ -10,6 +10,7 @@ export default {
             "@": path.resolve("./src"),
             "@components": path.resolve("./src/components"),
             "@styles": path.resolve("./src/styles"),
+            "@scripts": path.resolve("./src/scripts"),
             "@assets": path.resolve("./src/assets"),
             "@layouts": path.resolve("./src/layouts"),
             "@fonts": path.resolve("./public/fonts"),
@@ -30,6 +31,9 @@ export default {
     build: {
         assetsInlineLimit: 0,
         rollupOptions: {
+            input: {
+                //main: path.resolve(__dirname, "@scripts/main.js"), // Указываем входную точку
+            },
             output: {
                 // Добавляем хеш для cache busting
                 assetFileNames: "assets/[name]-[hash][extname]",

@@ -5,72 +5,102 @@
     align-items: center;
     justify-content: center;
     padding: var(--space-y-button) var(--space-x-button);
-    border-radius: var(--border-radius-medium);
+    border-radius: var(--border-radius-full);
     border: 1px solid transparent;
     font-family: var(--font-family-base);
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size-md);
     line-height: 1;
     cursor: pointer;
-    transition: all var(--transition-duration-fast) var(--transition-timing-default);
+    transition: all var(--transition-duration-slow);
     gap: var(--space-xs);
 
-    // Цвета по умолчанию (primary кнопка)
-    background-color: var(--md-sys-color-primary);
-    color: var(--md-sys-color-on-primary);
-
-    // Состояния
-    &:hover {
-        background-color: var(--color-primary);
-        box-shadow: var(--box-shadow-Light-01);
-    }
-
-    &:focus {
-        outline: none;
-        box-shadow: 0 0 0 2px var(--color-focus);
-    }
-
-    &:active {
-        background-color: var(--color-active);
-        transform: translateY(1px);
-    }
-
-    &:disabled {
-        background-color: var(--color-secondary);
-        color: var(--color-text-light);
-        cursor: not-allowed;
-        opacity: var(--opacity-disabled);
-    }
-
     // Модификаторы
-    &--secondary {
+    &--filled {
+        &:hover {
+        }
+
+        &:focus {
+        }
+
+        &:active {
+        }
+
+        &:disabled {
+        }
+    }
+
+    &--outlined {
+        &:hover {
+        }
+
+        &:focus {
+        }
+
+        &:active {
+        }
+
+        &:disabled {
+        }
+    }
+
+    &--elevated {
         background-color: transparent;
-        border-color: var(--color-primary);
-        color: var(--color-primary);
 
         &:hover {
-            background-color: rgba(var(--color-primary), 0.08);
+        }
+
+        &:focus {
+        }
+
+        &:active {
+        }
+
+        &:disabled {
         }
     }
 
     &--text {
         background-color: transparent;
-        color: var(--color-primary);
-        padding: var(--space-xs);
+        color: var(--md-sys-color-primary);
+        &::after {
+            font-family: "icomoon";
+            content: "\ea3c";
+            width: 18px;
+            height: 18px;
+            color: inherit;
+            bottom: 0;
+            right: 0;
+        }
 
         &:hover {
-            //background-color: rgba(var(--color-primary), 0.08);
+            background: var(--State-Layers-Primary-Opacity-08, rgba(101, 85, 143, 0.08));
+        }
+
+        &:focus {
+        }
+
+        &:active {
+        }
+
+        &:disabled {
         }
     }
-
-    &--danger {
+    &--tonal {
         background-color: var(--md-sys-color-error);
 
         &:hover {
-            //background-color: darken(var(--md-sys-color-error), 10%);
+        }
+
+        &:focus {
+        }
+
+        &:active {
+        }
+
+        &:disabled {
         }
     }
-
     // Размеры
     &--sm {
         padding: var(--space-xs) var(--space-sm);
@@ -80,11 +110,6 @@
     &--lg {
         padding: var(--space-md) var(--space-lg);
         font-size: var(--font-size-lg);
-    }
-
-    // Иконка в кнопке
-    &__icon {
-        font-size: var(--icon-size-small);
     }
 }
 
