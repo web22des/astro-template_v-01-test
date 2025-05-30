@@ -1,12 +1,22 @@
 @use "../base/mixins/_rem-em.scss" as rem-em;
 @use "../base/media.scss" as media;
+
 :root {
+    // =============================================
+    // 1. ТИПОГРАФИКА
+    // =============================================
+
     // Шрифты
     --font-family-base: "Roboto", system-ui, sans-serif;
     --font-family-heading: "Roboto", system-ui, sans-serif;
     --font-family-mono: "Roboto", system-ui, sans-serif;
 
-    // Размеры шрифтов
+    // Начертания (перенесено выше медиазапросов)
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+
+    // Базовые размеры шрифтов (до медиазапросов)
     --font-size-base: #{rem-em.rem(16)};
     --font-size-xs: #{rem-em.rem(12)};
     --font-size-sm: #{rem-em.rem(14)};
@@ -16,6 +26,8 @@
     --font-size-xxl: #{rem-em.rem(26)};
     --font-size-xxxl: #{rem-em.rem(36)};
     --font-size-display: #{rem-em.rem(96)};
+
+    // Адаптивные размеры шрифтов (группировка всех медиазапросов вместе)
     /* xlarge */
     @media (max-width: rem-em.em(1200)) {
         --font-size-display: #{rem-em.rem(86)};
@@ -24,23 +36,18 @@
     @media (max-width: rem-em.em(992)) {
         --font-size-display: #{rem-em.rem(76)};
     }
-
+    /* medium */
     @media (max-width: rem-em.em(767)) {
         --font-size-display: #{rem-em.rem(56)};
         --font-size-xxxl: #{rem-em.rem(32)};
         --font-size-xxl: #{rem-em.rem(24)};
     }
-    // small
+    /* small */
     @media (max-width: rem-em.em(480)) {
         --font-size-display: #{rem-em.rem(36)};
         --font-size-xxxl: #{rem-em.rem(28)};
         --font-size-xxl: #{rem-em.rem(20)};
     }
-
-    // Начертания
-    --font-weight-light: 300;
-    --font-weight-regular: 400;
-    --font-weight-bold: 700;
 
     // Межстрочные интервалы
     --line-height-base: 1.3;
@@ -55,6 +62,10 @@
     --letter-spacing-wide: 0.025em; /* ≈ 0.4px (минимальное расширение) */
     --letter-spacing-wider: 0.05em; /* ≈ 0.8px */
     --letter-spacing-widest: 0.1em; /* ≈ 1.6px (для заголовков) */
+
+    // =============================================
+    // 2. ЦВЕТА
+    // =============================================
 
     // Основные цвета
     --color-primary: #110e71;
@@ -97,10 +108,14 @@
     --linear-gradient-line-base: linear-gradient(to right, #343045 0%, #343045 0%, #c0b7e8 34.9%, #8176af 68.75%, #343045 100%);
     --radial-gradient-base: radial-gradient(50% 50% at 50% 50%, #403a5f 0%, #211e2e 100%);
 
+    // =============================================
+    // 3. ОТСТУПЫ И РАЗМЕРЫ
+    // =============================================
+
     // Базовый размер
     --space-unit: 1rem;
 
-    // Отступы
+    // Базовые отступы
     --space-xxs: #{rem-em.rem(4)};
     --space-xs: #{rem-em.rem(8)};
     --space-sm: #{rem-em.rem(12)};
@@ -110,16 +125,19 @@
     --space-xxl: #{rem-em.rem(48)};
     --space-xxxl: #{rem-em.rem(64)};
 
+    // Адаптивные отступы (группировка медиазапросов)
     @media (max-width: media.$mobile-small) {
         --space-md: #{rem-em.rem(8)};
-    }
-    @media (max-width: media.$mobile) {
-        --space-md: #{rem-em.rem(12)};
+        --space-all-card: #{rem-em.rem(8)}; // 16px (карточки)
+        --space-y-card: #{rem-em.rem(8)}; // 16px (карточки)
     }
 
     @media (max-width: media.$mobile) {
+        --space-md: #{rem-em.rem(12)};
         --space-xxl: #{rem-em.rem(36)};
+        --icon-size-medium: #{rem-em.rem(24)};
     }
+
     @media (max-width: media.$tablet) {
         --space-lg: #{rem-em.rem(12)};
     }
@@ -135,14 +153,13 @@
     --space-input: var(--space-sm); // 12px (поля ввода)
     --space-section: var(--space-lg); // 24px (секции)
 
-    @media (max-width: media.$mobile-small) {
-        --space-all-card: #{rem-em.rem(8)}; // 16px (карточки)
-        --space-y-card: #{rem-em.rem(8)}; // 16px (карточки)
-    }
-
     // Специальные случаи
     --space-icon-text: #{rem-em.rem(8)}; // Отступ между иконкой и текстом
     --space-grid-gap: var(--space-lg); // Отступы в grid-сетках
+
+    // =============================================
+    // 4. ГРАНИЦЫ И СКРУГЛЕНИЯ
+    // =============================================
 
     /* Border Width Variables */
     --border-width-none: 0;
@@ -162,7 +179,11 @@
     --border-radius-extra-large: #{rem-em.rem(28)};
     --border-radius-full: #{rem-em.rem(1000)};
 
-    // Размеры компонентов
+    // =============================================
+    // 5. РАЗМЕРЫ КОМПОНЕНТОВ
+    // =============================================
+
+    // Основные размеры
     --header-height: #{rem-em.rem(60)};
     --sidebar-width: #{rem-em.rem(240)};
     --max-content-width: #{rem-em.rem(1200)};
@@ -185,9 +206,6 @@
     --icon-size-full: 100%;
     --icon-radius-sm: #{rem-em.rem(4)};
     --icon-radius-full: 50%;
-    @media (max-width: media.$mobile) {
-        --icon-size-medium: #{rem-em.rem(24)};
-    }
 
     // Картинки
     --img-ratio-square: 1/1;
@@ -213,7 +231,11 @@
     --img-min-height: #{rem-em.rem(50)};
     --img-max-height: 100vh;
 
-    // Тени
+    // =============================================
+    // 6. ТЕНИ И ЭФФЕКТЫ
+    // =============================================
+
+    // Тени блоков
     --box-shadow-Light-01: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
     --box-shadow-Light-02: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
     --box-shadow-Light-03: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
@@ -225,19 +247,25 @@
     --box-shadow-Dark-04: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
     --box-shadow-Dark-05: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
 
-    // Тени текст
+    // Тени текста
     --text-shadow-Light-02: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 2px 6px rgba(0, 0, 0, 0.15);
     --text-shadow-Light-03: 0px 4px 8px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
     --text-shadow-Light-04: 0px 6px 10px rgba(0, 0, 0, 0.15), 0px 2px 3px rgba(0, 0, 0, 0.3);
 
-    // Анимация
+    // =============================================
+    // 7. АНИМАЦИЯ И ПЕРЕХОДЫ
+    // =============================================
+
     --transition-duration-fast: 0.15s;
     --transition-duration-normal: 0.3s;
     --transition-duration-slow: 0.5s;
     --transition-timing-default: cubic-bezier(0.4, 0, 0.2, 1);
     --transition-timing-bounce: cubic-bezier(0.68, -0.6, 0.32, 1.6);
 
-    // Z-индексы
+    // =============================================
+    // 8. Z-ИНДЕКСЫ И СЛОИ
+    // =============================================
+
     --z-index-base: 0;
     --z-index-dropdown: 100;
     --z-index-sticky: 200;
@@ -246,7 +274,10 @@
     --z-index-tooltip: 500;
     --z-index-toast: 600;
 
-    // Прочие переменные
+    // =============================================
+    // 9. ПРОЧИЕ ПЕРЕМЕННЫЕ
+    // =============================================
+
     --max-width-container: #{rem-em.rem(1200)};
     --min-width-container: #{rem-em.rem(320)};
     --min-height-screen: 100vh;

@@ -1,0 +1,80 @@
+---
+
+---
+        <!-- Форма с HTML5-валидацией -->
+        <form class="contact-form__form" action="/submit-form" method="POST" novalidate>
+            <fieldset class="contact-form__form-wrap">
+                <legend class="visually-hidden">Контактная информация</legend>
+                <div class="contact-form__grid">
+                  <div class="contact-form__col">
+                    <!-- Группа полей (имя, email, телефон) -->
+                    <div class="contact-form__form-group">
+                      <input
+                          class="contact-form__input"
+                          type="text"
+                          id="first-name"
+                          name="first_name"
+                          autocomplete="name" required
+                          required
+                          aria-label="Имя (обязательное поле)"
+                          placeholder="Введите ваше имя"
+                          minlength="2"
+                          maxlength="50" />
+                  </div>
+                  <div class="contact-form__form-group">
+                      <input
+                          class="contact-form__input"
+                          type="email"
+                          id="email"
+                          name="email"
+                          autocomplete="email"
+                          required
+                          aria-label="Email (обязательное поле)"
+                          placeholder="example@mail.com"
+                          pattern="[^@\s]+@[^@\s]+\.[^@\s]+" />
+                        </div>
+                        
+                        <div class="contact-form__form-group">
+                          <input class="contact-form__input" 
+                          type="tel" 
+                          id="phone" 
+                          name="phone" 
+                          autocomplete="tel"
+                          aria-label="Телефон" 
+                          placeholder="+7 (XXX) XXX-XX-XX" 
+                          pattern="[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}" />
+                        </div>
+                  </div>
+                  <div class="contact-form__col">
+                    <div class="contact-form__textarea-wrap">
+                    <textarea
+                        class="contact-form__textarea"
+                        id="message"
+                        name="message"
+                        rows="5"
+                        aria-label="Сообщение"
+                        placeholder="Введите ваше сообщение..."
+                        maxlength="1000"></textarea>
+                    </div>
+                  </div>
+                </div>
+                  <!-- Чекбокс согласия (исправленная версия) -->
+                  <label class="contact-form__checkbox-wrap">
+                    <input type="checkbox" id="consent" name="consent" required checked class="visually-hidden" />
+                    <span class="contact-form__checkbox-icon _icon-checkbox-unchecked" aria-hidden="true"></span>
+                    <span class="contact-form__checkbox-label"> Согласие на обработку персональных данных* </span>
+                  </label>
+                </div>
+
+                <!-- Кнопка отправки -->
+                <div class="contact-form__footer">
+                    <button class="button button--filled" type="submit">Отправить</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <style lang="scss">
+
+
+    </style>

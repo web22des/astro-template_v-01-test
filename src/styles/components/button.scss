@@ -8,8 +8,8 @@
     border-radius: var(--border-radius-full);
     border: 1px solid transparent;
     font-family: var(--font-family-base);
-    font-weight: var(--font-weight-bold);
     font-size: var(--font-size-md);
+    letter-spacing: var(--letter-spacing-wider);
     line-height: 1;
     cursor: pointer;
     transition: all var(--transition-duration-slow);
@@ -17,7 +17,11 @@
 
     // Модификаторы
     &--filled {
+        background: var(--md-sys-color-primary);
+        color: var(--md-sys-color-on-primary);
+        padding: var(--space-y-button) var(--space-x-button);
         &:hover {
+            box-shadow: var(--box-shadow-Light-01);
         }
 
         &:focus {

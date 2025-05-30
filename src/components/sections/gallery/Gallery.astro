@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+
+import TitleSections from "../../ui/TitleSections.astro";
+
+
+const titleSection = 'Галерея работ';
+const subTitleSection = 'Здесь представлены некоторые работы сделанные за последний квартал';
+
+import Images from '../../ui/Images.astro';
+import macbookImage from "@assets/images/content/gallery/Macbook.png";
+import gallery01 from "@assets/images/content/gallery/gallery-01-sm.jpg";
+import gallery02 from "@assets/images/content/gallery/gallery-02-sm.jpg";
+import gallery03 from "@assets/images/content/gallery/gallery-03-sm.jpg";
+import gallery04 from "@assets/images/content/gallery/gallery-04-sm.jpg";
+
+---
+
+<section class="gallery">
+    <div class="gallery__container">
+        <TitleSections  titleSection={titleSection} subTitleSection={subTitleSection} />
+        <!-- Оболочка слайдера -->
+        <div class="gallery__slider swiper">
+            <!-- Двигающееся часть слайдера -->
+            <div class="gallery__wrapper swiper-wrapper">
+                <!-- Слайд -->
+                <div class="gallery__slide swiper-slide">
+                    <Images class="gallery__img" src={macbookImage} alt="macbook" />
+                    <div class="gallery__slide-content">
+                        <Images class="gallery__content-img" src={gallery01} alt="m" />
+                    </div>
+                </div>
+                <div class="gallery__slide swiper-slide">
+                    <Images class="gallery__img" src={macbookImage} alt="macbook" />
+                    <div class="gallery__slide-content">
+                        <Images class="gallery__content-img" src={gallery02} alt="m" />
+                    </div>
+                </div>
+                <div class="gallery__slide swiper-slide">
+                    <Images class="gallery__img" src={macbookImage} alt="macbook" />
+                    <div class="gallery__slide-content">
+                        <Images class="gallery__content-img" src={gallery03} alt="m" />
+                    </div>
+                </div>
+                <div class="gallery__slide swiper-slide">
+                    <Images class="gallery__img" src={macbookImage} alt="macbook" />
+                    <div class="gallery__slide-content">
+                        <Images class="gallery__content-img" src={gallery04} alt="m" />
+                    </div>
+                </div>
+            </div>
+            <!-- Если нужна пагинация -->
+            <div class="swiper-pagination"></div>
+            <!-- Если нужна навигация (влево/вправо) -->
+            <button type="button" class="swiper-button-prev"></button>
+            <button type="button" class="swiper-button-next"></button>
+            <!-- Если нужен скролбар -->
+            <!-- <div class="swiper-scrollbar"></div> -->
+        </div>
+    </div>
+</section>
+
+

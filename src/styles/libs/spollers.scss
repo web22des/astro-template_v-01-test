@@ -53,8 +53,18 @@
     background-color: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
     //padding-top: var(--space-xl);
     padding: var(--space-all-card);
+    border-radius: var(--border-radius-medium);
 }
 .spollers__body-text {
     color: var(--md-sys-color-secondary);
-    //margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    position: relative;
+    padding-left: var(--space-lg);
+    &::before {
+        font-family: "icomoon";
+        content: "\e9cd";
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }

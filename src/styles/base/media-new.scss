@@ -1,0 +1,182 @@
+@use "sass:math";
+@use "sass:map";
+@use "./mixins/_rem-em.scss" as rem-em;
+
+// ======================================================
+// 1. Базовые настройки адаптива
+// ======================================================
+$min-width: 320; // Минимальная ширина viewport (в px)
+$max-width: 2560; // Максимальная ширина viewport (в px) - учитываем 2K мониторы
+$max-width-container: 1128; // Максимальная ширина контейнера (в px)
+$container-padding: 24; // Отступы контейнера (в px)
+$responsive-type: 1; // 1 = отзывчивый контейнер, 2 = по брейкпоинтам
+
+// Рассчитанные значения
+$container-width: $max-width-container + $container-padding;
+
+// ======================================================
+// 2. Новая система брейкпоинтов (по изображению)
+// ======================================================
+$breakpoints: (
+    // Телефоны
+    "phone-small": rem-em.em(359),
+    // 0-359px - старые смартфоны
+    "phone-medium": rem-em.em(411),
+    // 360-411px - основной мобильный диапазон
+    "phone-large": rem-em.em(599),
+    // 412-599px - современные Android и iPhone PRO
+    // Планшеты
+    "tablet-small": rem-em.em(767),
+    // 600-767px - маленькие планшеты
+    "tablet-medium": rem-em.em(1023),
+    // 768-1023px - планшеты в портретной ориентации
+    "tablet-large": rem-em.em(1279),
+    // 1024-1279px - планшеты в альбомной ориентации
+    // Ноутбуки
+    "laptop-small": rem-em.em(1365),
+    // 1280-1365px - минимальные нетакч устройства
+    "laptop-medium": rem-em.em(1535),
+    // 1366-1535px - бюджетные ноутбуки
+    "laptop-large": rem-em.em(1919),
+    // 1536-1919px - FullHD с масштабированием 125%
+    // Десктопы
+    "desktop": rem-em.em(2559),
+    // 1920-2559px - стандартные десктопы
+    "desktop-2k": rem-em.em(2560),
+    // 2560px+ - 2K мониторы и выше
+    // Специальный брейкпоинт для контейнера
+    "container": rem-em.em($container-width)
+);
+
+// ======================================================
+// 3. Алиасы для удобства (сохраняем старые + добавляем новые)
+// ======================================================
+// Мобильные устройства
+$mobile-small: map.get($breakpoints, "phone-small");
+$mobile: map.get($breakpoints, "phone-medium");
+$mobile-large: map.get($breakpoints, "phone-large");
+
+// Планшеты
+$tablet: map.get($breakpoints, "tablet-small");
+$tablet-medium: map.get($breakpoints, "tablet-medium");
+$tablet-large: map.get($breakpoints, "tablet-large");
+
+// Ноутбуки
+$laptop: map.get($breakpoints, "laptop-small");
+$laptop-medium: map.get($breakpoints, "laptop-medium");
+$laptop-large: map.get($breakpoints, "laptop-large");
+
+// Десктопы
+$desktop: map.get($breakpoints, "desktop");
+$desktop-2k: map.get($breakpoints, "desktop-2k");
+
+// ======================================================
+// 4. Миксины для медиазапросов (обновленные)
+// ======================================================
+/// Миксин для медиазапросов "max-width"
+/// @param {string} $breakpoint - Ключ из $breakpoints
+/// @example scss - Пример использования
+///   @include max-width('tablet-medium') { ... }
+@mixin max-width($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (max-width: map.get($breakpoints, $breakpoint)) {
+            @content;
+        }
+    } @else {
+        @error "Неизвестный брейкпоинт '#{$breakpoint}'. Доступные значения: #{map-keys($breakpoints)}";
+    }
+}
+
+/// Миксин для медиазапросов "min-width" (с учетом .02em для перекрытия)
+/// @param {string} $breakpoint - Ключ из $breakpoints
+/// @example scss - Пример использования
+///   @include min-width('laptop') { ... }
+@mixin min-width($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: map.get($breakpoints, $breakpoint) + 0.02) {
+            @content;
+        }
+    } @else {
+        @error "Неизвестный брейкпоинт '#{$breakpoint}'";
+    }
+}
+
+/// Миксин для диапазона ширины (between)
+/// @param {string} $min - Минимальный брейкпоинт
+/// @param {string} $max - Максимальный брейкпоинт
+/// @example scss - Пример использования
+///   @include between-widths('tablet-small', 'tablet-large') { ... }
+@mixin between-widths($min, $max) {
+    @if map-has-key($breakpoints, $min) and map-has-key($breakpoints, $max) {
+        $min-width: map.get($breakpoints, $min) + 0.02;
+        $max-width: map.get($breakpoints, $max);
+        @media (min-width: $min-width) and (max-width: $max-width) {
+            @content;
+        }
+    } @else {
+        @error "Один из брейкпоинтов не найден. Проверьте: $min='#{$min}', $max='#{$max}'";
+    }
+}
+
+// ======================================================
+// 5. Стили контейнера (адаптивные варианты)
+// ======================================================
+[class*="__container"] {
+    width: 100%;
+    max-width: rem-em.rem($max-width-container);
+    margin: 0 auto;
+    padding: var(--space-xxl) rem-em.rem(math.div($container-padding, 2));
+    box-sizing: border-box;
+
+    // Вариант с брейкпоинтами (если $responsive-type == 2)
+    @if $responsive-type == 2 {
+        @include max-width("desktop") {
+            max-width: rem-em.rem(1200);
+        }
+        @include max-width("laptop-large") {
+            max-width: rem-em.rem(1100);
+        }
+        @include max-width("tablet-large") {
+            max-width: rem-em.rem(900);
+        }
+        @include max-width("tablet-small") {
+            max-width: rem-em.rem(700);
+        }
+        @include max-width("phone-large") {
+            max-width: none;
+            padding: var(--space-xl) var(--space-md);
+        }
+    }
+}
+
+// ======================================================
+// 6. Дополнительные утилиты (обновленные)
+// ======================================================
+/// Миксин для адаптивного свойства (clamp)
+/// @param {string} $property - CSS свойство
+/// @param {number} $min-size - Минимальный размер (в px)
+/// @param {number} $max-size - Максимальный размер (в px)
+/// @example scss - Пример использования
+///   @include responsive-property('font-size', 16, 24);
+@mixin responsive-property($property, $min-size, $max-size) {
+    #{$property}: clamp(rem-em.rem($min-size), #{math.div($max-size - $min-size, $max-width - $min-width) * 100}vw, rem-em.rem($max-size));
+}
+
+/// Миксин для скрытия элементов на определенных брейкпоинтах
+/// @param {string} $breakpoint - Брейкпоинт для скрытия
+/// @param {string} $direction - 'below' или 'above'
+@mixin hide-at($breakpoint, $direction: "below") {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @if $direction == "below" {
+            @include max-width($breakpoint) {
+                display: none !important;
+            }
+        } @else {
+            @include min-width($breakpoint) {
+                display: none !important;
+            }
+        }
+    } @else {
+        @error "Неизвестный брейкпоинт '#{$breakpoint}'";
+    }
+}

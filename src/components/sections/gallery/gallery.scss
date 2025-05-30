@@ -1,0 +1,123 @@
+@use "../../../styles/base/media-new.scss" as media-new;
+
+.gallery {
+    &__container {
+    }
+
+    &__slider {
+        box-shadow: var(--box-shadow-Light-02);
+        border-radius: var(--border-radius-medium);
+        @media (min-width: media-new.$mobile-large) {
+            box-shadow: none;
+        }
+    }
+
+    &__wrapper {
+        background: inherit;
+        //padding-top: 12px;
+    }
+
+    &__slide {
+        //border: 1px solid #000;
+        text-align: center;
+    }
+
+    &__img {
+        position: relative;
+        display: none;
+        @media (min-width: media-new.$mobile-large) {
+            display: block;
+            max-width: 575px;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+
+            margin: 0 auto;
+        }
+        @media (min-width: media-new.$tablet) {
+            max-width: 740px;
+        }
+        @media (min-width: media-new.$tablet-medium) {
+            max-width: 936px;
+        }
+        @media (min-width: media-new.$tablet-large) {
+            //width: 850px;
+            //width: 750px;
+        }
+    }
+
+    &__slide-content {
+        aspect-ratio: 3/2;
+        width: 100%;
+        overflow-x: hidden;
+        background-color: var(--md-sys-color-on-secondary-fixed);
+        @media (min-width: media-new.$mobile-large) {
+            position: absolute;
+            top: 43%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 386px;
+            height: 244px;
+            border-radius: var(--border-radius-small);
+        }
+        @media (min-width: media-new.$tablet) {
+            width: 500px;
+            height: 318px;
+        }
+
+        @media (min-width: media-new.$tablet-medium) {
+            width: 630px;
+            height: 406px;
+        }
+    }
+    &__content-img {
+        //display: none;
+        width: 100%;
+        //object-fit: cover;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+        color: var(--md--sys-surface);
+        &::after {
+            font-size: var(--font-size-xxxl);
+            font-family: "icomoon";
+        }
+        &::before {
+            content: "";
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--border-radius-full);
+            background-color: var(--md-sys-color-on-tertiary);
+            z-index: -1;
+        }
+    }
+    .swiper-button-prev {
+        &::after {
+            font-family: "icomoon";
+            content: "\e967";
+        }
+    }
+    .swiper-button-next {
+        &::after {
+            font-family: "icomoon";
+            content: "\e968";
+        }
+    }
+}
+
+.swiper {
+}
+.swiper-wrapper {
+}
+.swiper-slide {
+}
+.swiper-pagination {
+}
+.swiper-button-prev {
+}
+.swiper-button-next {
+}
+
+.swiper-scrollbar {
+}

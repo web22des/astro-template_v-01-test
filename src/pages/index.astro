@@ -7,6 +7,8 @@ import WebsiteTypes from "../components/sections/WebsiteTypes.astro";
 import Services from "../components/sections/Services.astro";
 import DevelopmentProcess from "../components/sections/DevelopmentProcess.astro";
 import Result from "../components/sections/Result.astro";
+import ContactForm from "../components/sections/ContactForm.astro";
+import Gallery from "../components/sections/gallery/Gallery.astro";
 
 const title = "Главная"
 ---
@@ -14,8 +16,10 @@ const title = "Главная"
 <PageLayout title={title}>
 	<Hero />
 	<Advantages />
-	<Services />
+	<!-- <Services /> -->
 	<WebsiteTypes />
 	<DevelopmentProcess />
 	<Result />
+	<Gallery />
+	<ContactForm />
 </PageLayout>

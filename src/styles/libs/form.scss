@@ -1,0 +1,121 @@
+@use "../../styles/base/mixins/rem-em" as rem-em;
+@use "../../styles/base/mixins/grid.scss" as grid;
+
+.contact-form {
+    &__form-wrap {
+        // display: flex;
+        // flex-wrap: wrap;
+        // row-gap: 40px;
+        // column-gap: 20px;
+        // @media (max-width: rem-em.em(768)) {
+        //     row-gap: 24px;
+        // }
+    }
+    &__grid {
+        @include grid.grid-2-columns(var(--space-grid-gap));
+        margin-bottom: var(--space-md);
+    }
+
+    &__col {
+        width: 100%;
+        min-width: 0; /* Фикс для переполнения содержимого */
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-grid-gap);
+    }
+    &__form-group {
+    }
+
+    &__input,
+    &__textarea {
+        width: 100%;
+        color: var(--md-sys-color-secondary);
+        background-color: inherit;
+        padding: var(--space-input) var(--space-input);
+        border: 2px solid var(--md-sys-color-on-surface-variant);
+        border-radius: var(--border-radius-medium);
+
+        /* Стили для невалидных полей */
+        &:not(:placeholder-shown):invalid {
+            border-color: var(--md-sys-color-error);
+            box-shadow: var(--box-shadow-Light-05);
+        }
+
+        &:focus {
+            //border: 3px solid var(--color-border);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+            box-shadow: var(--box-shadow-Light-02);
+            outline: none;
+        }
+
+        &::placeholder {
+            font-family: var(--font-family-base);
+            font-size: var(--font-size-lg);
+        }
+    }
+    &__textarea-wrap {
+        width: 100%;
+        textarea {
+            resize: none;
+            height: 100%;
+            min-height: 180px;
+        }
+    }
+    /* Переработанный чекбокс */
+    &__checkbox-wrap {
+        min-width: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+
+        /* Кастомный чекбокс */
+        .contact-form__checkbox-icon {
+            // width: 24px;
+            // height: 24px;
+            // border: 2px solid var(--color-icons-base);
+            // border-radius: 4px;
+            // transition: all 0.3s ease;
+
+            /* Галочка (использует псевдоэлемент) */
+            position: relative;
+            &::after {
+                font-family: "icomoon";
+                content: "\ea52";
+                position: absolute;
+                display: none;
+                left: 0;
+                top: -3px;
+                color: var(--md-sys-color-tertiary);
+            }
+        }
+
+        /* Стили для отмеченного чекбокса */
+        input[type="checkbox"]:checked + .contact-form__checkbox-icon {
+            background-color: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+
+            &::after {
+                display: block;
+            }
+        }
+
+        /* Фокус-стили */
+        input[type="checkbox"]:focus-visible + .contact-form__checkbox-icon::after {
+            color: var(--md-sys-color-primary);
+        }
+    }
+
+    &__checkbox-label {
+    }
+
+    &__footer {
+        padding-top: var(--space-md);
+        // width: 100%;
+        // @media (max-width: rem-em.em(768)) {
+        //     text-align: center;
+        // }
+    }
+}

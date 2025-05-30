@@ -1,0 +1,14 @@
+---
+import Form from "../ui/Form.astro";
+import TitleSections from "../ui/TitleSections.astro";
+
+const titleSection = "Бесплатная консультация";
+const subTitleSection = "Свяжемся с вами, и ответим на все вопросы, а так же подберем уникальный путь создания вашего продукта.";
+
+---
+<section class="contact-form">
+    <div class="contact-form__container">
+        <TitleSections titleSection={titleSection} subTitleSection={subTitleSection} />
+        <Form />
+    </div>
+</section>
