@@ -6,7 +6,7 @@ import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 
 // Инициализация слайдеров
-function initSliders() {
+export function initSliders() {
     // Перечень слайдеров
     // Проверяем, есть ли слайдер на странице
     if (document.querySelector(".swiper")) {
@@ -120,9 +120,9 @@ function initSlidersScroll() {
     }
 }
 
-window.addEventListener("load", function (e) {
-    // Запуск инициализации слайдеров
-    initSliders();
-    // Запуск инициализации скролла на базе слайдера (по классу swiper_scroll)
-    //initSlidersScroll();
-});
+// window.addEventListener("load", function (e) {
+//     // Запуск инициализации слайдеров
+//     initSliders();
+//     // Запуск инициализации скролла на базе слайдера (по классу swiper_scroll)
+//     //initSlidersScroll();
+// });
