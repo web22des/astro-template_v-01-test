@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="ru" class="dark"> <head><meta charset="utf-8"><!-- Базовые иконки --><link rel="icon" href="/favicon/favicon.ico" sizes="any"><link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml"><!-- Адаптивные иконки --><link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"><link rel="manifest" href="/favicon/site.webmanifest"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css"><title>Полное руководство по оптимизации изображений в Astro</title><link rel="stylesheet" href="/astro-template_v-01-test/assets/post01-C8umMctX.css"></head> <body class="wrapper"> <div class="header"> <div class="header__container"> <div class="header__body"> <div class="header__logo"> <img src="/astro-template_v-01-test/icons/logo-light.svg" alt="Логотип"> <script>
+// Автоматическое обновление пути при смене темы
+const updateLogo = () => {
+  const theme = document.documentElement.getAttribute('data-theme') || 'light';
+  const base = '${import.meta.env.BASE_URL}';
+  document.querySelectorAll('[data-logo]').forEach(logo => {
+    logo.src = `${base}icons/logo-${theme}.svg`;
+  });
+};
+
+new MutationObserver(updateLogo).observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['data-theme']
+});
+</script> </div> <div class="header__nav"> <nav class="nav-menu"> <ul class="nav-menu__list"> <li class="nav-menu__item "> <a href="/astro-template_v-01-test/" class="nav-menu__link"> Главная </a>  </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/gallery/" class="nav-menu__link"> Галерея </a>  </li><li class="nav-menu__item has-dropdown"> <a href="/astro-template_v-01-test/news/" class="nav-menu__link" aria-expanded="false" aria-haspopup="true"> Новости<span class="_icon-_icon-arrow-right2 nav-menu__icon" aria-hidden="true"></span> </a> <ul class="nav-menu__submenu"> <li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/posts/" class="nav-menu__sublink"> Блог </a> </li><li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/news/news-history" class="nav-menu__sublink"> Новости </a> </li> </ul> </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/contacts/" class="nav-menu__link"> Контакты </a>  </li> </ul> </nav> </div> <div class="header__contacts"> <div class="contacts-icons"> <!-- Телефон --> <!--  Добавляем роль button для явного указания интерактивности --> <!-- Убедимся, что элемент фокусируем --> <a href="tel:+71234567890" class="contacts-icons__link contacts-icons__link--phone" aria-label="Позвонить по телефону" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-phone"></span> </span> <span class="visually-hidden">71234567890</span> </a> <!-- WhatsApp --> <a href="https://wa.me/71234567890" class="contacts-icons__link contacts-icons__link--whatsapp" aria-label="Написать в WhatsApp" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-whatsapp"></span> </span> <span class="visually-hidden">WhatsApp</span> </a> <!-- Telegram --> <a href="https://t.me/username" class="contacts-icons__link contacts-icons__link--telegram" aria-label="Написать в Telegram" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-telegram"></span> </span> <span class="visually-hidden">Telegram</span> </a> </div> </div> <div class="header__burger"> <span id="burgerButton" class="_icon-switch"></span> </div> </div> <div class="header__footer"> <div class="theme-toggle" data-astro-cid-lfoluaxz> <input type="checkbox" id="theme-toggle" class="theme-toggle__input" data-astro-cid-lfoluaxz> <label for="theme-toggle" class="theme-toggle__slider" data-astro-cid-lfoluaxz></label> </div> <script>
+(function() {
+  // Функция для синхронизации темы
+  function syncTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (systemDark ? 'dark' : 'light');
+    
+    // Устанавливаем атрибуты
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    document.getElementById('theme-toggle').checked = currentTheme === 'dark';
+  }
+
+  // Инициализация
+  syncTheme();
+
+  // Обработчик переключения
+  document.getElementById('theme-toggle').addEventListener('change', function(e) {
+    const theme = e.target.checked ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  });
+
+  // Следим за изменениями системной темы
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
+})();
+</script> </div> </div> </div> <script type="module" src="/astro-template_v-01-test/js/Header.astro_astro_type_script_index_0_lang-Bb6SQ8IX.js"></script> <article class="markdown-body"> <div class="markdown__container"> <h1 id="полное-руководство-по-оптимизации-изображений-в-astro">Полное руководство по оптимизации изображений в Astro</h1>
+<h2 id="введение">Введение</h2>
+<p>В современной веб-разработке правильная работа с изображениями — критически важный аспект производительности. Это руководство содержит исчерпывающую информацию по оптимизации изображений в проектах на Astro, включая лучшие практики, готовые компоненты и примеры кода.</p>
+<h2 id="основные-принципы-работы-с-изображениями">Основные принципы работы с изображениями</h2>
+<h3 id="обязательные-атрибуты">Обязательные атрибуты</h3>
+<p>Каждое изображение на вашем сайте должно содержать следующие атрибуты:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#6A737D">&#x3C;!--  --></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">img</span><span style="color:#B392F0"> src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/path/to/image.webp"</span><span style="color:#B392F0"> alt</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"Четкое описание содержимого изображения"</span><span style="color:#B392F0"> width</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"800"</span><span style="color:#B392F0"> height</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"600"</span><span style="color:#B392F0"> loading</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"lazy"</span><span style="color:#B392F0"> decoding</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"async"</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">&#x3C;!--  --></span></span></code></pre>
+<h3 id="пояснение">Пояснение:</h3>
+<ul>
+<li><code>src</code> и <code>alt</code> — обязательные атрибуты для доступности и SEO</li>
+<li><code>width</code> и <code>height</code> предотвращают layout shift (CLS)</li>
+<li><code>loading="lazy"</code> включает отложенную загрузку</li>
+<li><code>decoding="async"</code> улучшает производительность рендеринга</li>
+</ul>
+<h2 id="оптимизация-lcp-изображений">Оптимизация LCP-изображений</h2>
+<p>Главное изображение страницы (LCP-элемент) требует особого подхода:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">Image</span></span>
+<span class="line"><span style="color:#B392F0">  src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/hero-banner.webp"</span></span>
+<span class="line"><span style="color:#B392F0">  alt</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"Главный баннер компании"</span></span>
+<span class="line"><span style="color:#B392F0">  width</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{1200}</span></span>
+<span class="line"><span style="color:#B392F0">  height</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{630}</span></span>
+<span class="line"><span style="color:#B392F0">  loading</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"eager"</span></span>
+<span class="line"><span style="color:#B392F0">  fetchpriority</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"high"</span></span>
+<span class="line"><span style="color:#B392F0">  format</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"webp"</span></span>
+<span class="line"><span style="color:#B392F0">  quality</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{80}</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span>
+<span class="line"></span></code></pre>
+<h3 id="ключевые-моменты">Ключевые моменты:</h3>
+<ul>
+<li>Используйте <code>loading="eager"</code> для немедленной загрузки</li>
+<li><code>fetchpriority="high"</code> указывает браузеру на приоритетность</li>
+<li>WebP формат с качеством 80% — оптимальный баланс</li>
+</ul>
+<h2 id="работа-с-галереями-изображений">Работа с галереями изображений</h2>
+<h3 id="1-создание-структуры-данных">1. Создание структуры данных</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"><span style="color:#6A737D">// В начале файла компонента или страницы</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> productImages</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#E1E4E8">    src: </span><span style="color:#9ECBFF">"/products/product-1.webp"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    alt: </span><span style="color:#9ECBFF">"Наш продукт в голубом цвете"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    width: </span><span style="color:#79B8FF">600</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    height: </span><span style="color:#79B8FF">400</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    class: </span><span style="color:#9ECBFF">"product-image"</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#E1E4E8">    src: </span><span style="color:#9ECBFF">"/products/product-2.webp"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    alt: </span><span style="color:#9ECBFF">"Наш продукт в красном цвете"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    width: </span><span style="color:#79B8FF">600</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    height: </span><span style="color:#79B8FF">400</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    class: </span><span style="color:#9ECBFF">"product-image"</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"></span></code></pre>
+<h3 id="2-шаблон-для-вывода-галереи">2. Шаблон для вывода галереи</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">section</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"product-gallery"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  {productImages.map((image) => (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">figure</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{image.class}</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">img</span></span>
+<span class="line"><span style="color:#B392F0">        src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{image.src}</span></span>
+<span class="line"><span style="color:#B392F0">        alt</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{image.alt}</span></span>
+<span class="line"><span style="color:#B392F0">        width</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{image.width}</span></span>
+<span class="line"><span style="color:#B392F0">        height</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{image.height}</span></span>
+<span class="line"><span style="color:#B392F0">        loading</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"lazy"</span></span>
+<span class="line"><span style="color:#B392F0">        decoding</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"async"</span></span>
+<span class="line"><span style="color:#E1E4E8">      /></span></span>
+<span class="line"><span style="color:#E1E4E8">      &#x3C;</span><span style="color:#85E89D">figcaption</span><span style="color:#E1E4E8">>{image.alt}&#x3C;/figcaption></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">figure</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  ))}</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">section</span><span style="color:#E1E4E8">></span></span></code></pre>
+<h2 id="компонентный-подход">Компонентный подход</h2>
+<p>Создайте универсальный компонент изображения:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"><span style="color:#6A737D">// components/OptimizedImage.astro</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">  src</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  alt</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  width</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  height</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  loading</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> "lazy"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  className</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> ""</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  priority</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> false</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Astro.props;</span></span>
+<span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">img</span></span>
+<span class="line"><span style="color:#B392F0">  src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{src}</span></span>
+<span class="line"><span style="color:#B392F0">  alt</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{alt}</span></span>
+<span class="line"><span style="color:#B392F0">  width</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{width}</span></span>
+<span class="line"><span style="color:#B392F0">  height</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{height}</span></span>
+<span class="line"><span style="color:#B392F0">  loading</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{priority</span><span style="color:#E1E4E8"> ? "</span><span style="color:#B392F0">eager</span><span style="color:#E1E4E8">" : </span><span style="color:#B392F0">loading</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">  decoding</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{priority</span><span style="color:#E1E4E8"> ? "</span><span style="color:#B392F0">sync</span><span style="color:#E1E4E8">" : "</span><span style="color:#B392F0">async</span><span style="color:#E1E4E8">"}</span></span>
+<span class="line"><span style="color:#B392F0">  class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{</span><span style="color:#E1E4E8">`</span><span style="color:#B392F0">optimized-image</span><span style="color:#B392F0"> $</span><span style="color:#E1E4E8">{</span><span style="color:#B392F0">className</span><span style="color:#E1E4E8">}`}</span></span>
+<span class="line"><span style="color:#B392F0">  style</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{</span><span style="color:#E1E4E8">`</span><span style="color:#B392F0">aspect-ratio:</span><span style="color:#B392F0"> $</span><span style="color:#E1E4E8">{</span><span style="color:#B392F0">width</span><span style="color:#E1E4E8">}/</span><span style="color:#B392F0">$</span><span style="color:#E1E4E8">{</span><span style="color:#B392F0">height</span><span style="color:#E1E4E8">}`}</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span></code></pre>
+<h3 id="использование-компонента">Использование компонента:</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">OptimizedImage</span></span>
+<span class="line"><span style="color:#B392F0">  src</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"/example.webp"</span></span>
+<span class="line"><span style="color:#B392F0">  alt</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"Пример компонента"</span></span>
+<span class="line"><span style="color:#B392F0">  width</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{800}</span></span>
+<span class="line"><span style="color:#B392F0">  height</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{600}</span></span>
+<span class="line"><span style="color:#B392F0">  priority</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">{true}</span></span>
+<span class="line"><span style="color:#B392F0">  className</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"special-image"</span></span>
+<span class="line"><span style="color:#E1E4E8">/></span></span></code></pre>
+<h2 id="динамическая-загрузка-изображений">Динамическая загрузка изображений</h2>
+<p>Для проектов с большим количеством изображений:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> imageFiles</span><span style="color:#F97583"> =</span><span style="color:#F97583"> import</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">meta</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">glob</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'/src/assets/products/*.{webp,jpg}'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> productImages</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">all</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">  Object.</span><span style="color:#B392F0">entries</span><span style="color:#E1E4E8">(imageFiles).</span><span style="color:#B392F0">map</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> ([</span><span style="color:#FFAB70">path</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">loader</span><span style="color:#E1E4E8">]) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> image</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> loader</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">      src: image.default,</span></span>
+<span class="line"><span style="color:#E1E4E8">      alt: path.</span><span style="color:#B392F0">split</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'/'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">pop</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">split</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'.'</span><span style="color:#E1E4E8">)[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">].</span><span style="color:#B392F0">replace</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">/</span><span style="color:#DBEDFF">-</span><span style="color:#9ECBFF">/</span><span style="color:#F97583">g</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">' '</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">      width: </span><span style="color:#79B8FF">800</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      height: </span><span style="color:#79B8FF">600</span></span>
+<span class="line"><span style="color:#E1E4E8">    };</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#6A737D">---</span></span></code></pre>
+<h2 id="оптимизация-стилей">Оптимизация стилей</h2>
+<p>Добавьте в ваш CSS:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#6A737D">/* Базовые стили для изображений */</span></span>
+<span class="line"><span style="color:#85E89D">img</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    max-width</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">100</span><span style="color:#F97583">%</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    height</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">auto</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    object-fit</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">cover</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    transition</span><span style="color:#E1E4E8">: transform </span><span style="color:#79B8FF">0.3</span><span style="color:#F97583">s</span><span style="color:#79B8FF"> ease</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/* Специфические стили для галерей */</span></span>
+<span class="line"><span style="color:#B392F0">.product-gallery</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    display</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">grid</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    grid-template-columns</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">repeat</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">auto-fill</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">minmax</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">300</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#F97583">fr</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"><span style="color:#79B8FF">    gap</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1</span><span style="color:#F97583">rem</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">.optimized-image</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    border-radius</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">8</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    box-shadow</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#79B8FF"> 2</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> 4</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> rgba</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0.1</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/* Анимация при наведении */</span></span>
+<span class="line"><span style="color:#B392F0">.optimized-image:hover</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    transform</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">scale</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1.02</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="проверка-производительности">Проверка производительности</h3>
+<p>После внедрения изменений проверьте:</p>
+<ol>
+<li><strong>Lighthouse</strong> в Chrome DevTools</li>
+<li><strong>Web Vitals</strong> в консоли разработчика</li>
+<li>Размер изображений в Network-вкладке</li>
+</ol>
+<h3 id="заключение">Заключение</h3>
+<p>Следуя этим рекомендациям, вы значительно улучшите:</p>
+<ul>
+<li>
+<p>Скорость загрузки страниц</p>
+</li>
+<li>
+<p>Показатели Core Web Vitals</p>
+</li>
+<li>
+<p>Пользовательский опыт</p>
+</li>
+<li>
+<p>SEO-позиции сайта</p>
+</li>
+</ul>
+<p>Все примеры кода готовы к использованию в вашем проекте на Astro. Для внедрения просто скопируйте нужные фрагменты в соответствующие файлы.</p> <!-- Сюда вставится содержимое .md --> </div> </article> <footer class="footer"> <div class="footer__container"> <p>Footer</p> </div> </footer> </body></html>

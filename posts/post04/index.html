@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="ru" class="dark"> <head><meta charset="utf-8"><!-- Базовые иконки --><link rel="icon" href="/favicon/favicon.ico" sizes="any"><link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml"><!-- Адаптивные иконки --><link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"><link rel="manifest" href="/favicon/site.webmanifest"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css"><title>Куда попадают стили и скрипты из Astro-компонентов при сборке</title><link rel="stylesheet" href="/astro-template_v-01-test/assets/post01-C8umMctX.css"></head> <body class="wrapper"> <div class="header"> <div class="header__container"> <div class="header__body"> <div class="header__logo"> <img src="/astro-template_v-01-test/icons/logo-light.svg" alt="Логотип"> <script>
+// Автоматическое обновление пути при смене темы
+const updateLogo = () => {
+  const theme = document.documentElement.getAttribute('data-theme') || 'light';
+  const base = '${import.meta.env.BASE_URL}';
+  document.querySelectorAll('[data-logo]').forEach(logo => {
+    logo.src = `${base}icons/logo-${theme}.svg`;
+  });
+};
+
+new MutationObserver(updateLogo).observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['data-theme']
+});
+</script> </div> <div class="header__nav"> <nav class="nav-menu"> <ul class="nav-menu__list"> <li class="nav-menu__item "> <a href="/astro-template_v-01-test/" class="nav-menu__link"> Главная </a>  </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/gallery/" class="nav-menu__link"> Галерея </a>  </li><li class="nav-menu__item has-dropdown"> <a href="/astro-template_v-01-test/news/" class="nav-menu__link" aria-expanded="false" aria-haspopup="true"> Новости<span class="_icon-_icon-arrow-right2 nav-menu__icon" aria-hidden="true"></span> </a> <ul class="nav-menu__submenu"> <li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/posts/" class="nav-menu__sublink"> Блог </a> </li><li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/news/news-history" class="nav-menu__sublink"> Новости </a> </li> </ul> </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/contacts/" class="nav-menu__link"> Контакты </a>  </li> </ul> </nav> </div> <div class="header__contacts"> <div class="contacts-icons"> <!-- Телефон --> <!--  Добавляем роль button для явного указания интерактивности --> <!-- Убедимся, что элемент фокусируем --> <a href="tel:+71234567890" class="contacts-icons__link contacts-icons__link--phone" aria-label="Позвонить по телефону" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-phone"></span> </span> <span class="visually-hidden">71234567890</span> </a> <!-- WhatsApp --> <a href="https://wa.me/71234567890" class="contacts-icons__link contacts-icons__link--whatsapp" aria-label="Написать в WhatsApp" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-whatsapp"></span> </span> <span class="visually-hidden">WhatsApp</span> </a> <!-- Telegram --> <a href="https://t.me/username" class="contacts-icons__link contacts-icons__link--telegram" aria-label="Написать в Telegram" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-telegram"></span> </span> <span class="visually-hidden">Telegram</span> </a> </div> </div> <div class="header__burger"> <span id="burgerButton" class="_icon-switch"></span> </div> </div> <div class="header__footer"> <div class="theme-toggle" data-astro-cid-lfoluaxz> <input type="checkbox" id="theme-toggle" class="theme-toggle__input" data-astro-cid-lfoluaxz> <label for="theme-toggle" class="theme-toggle__slider" data-astro-cid-lfoluaxz></label> </div> <script>
+(function() {
+  // Функция для синхронизации темы
+  function syncTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (systemDark ? 'dark' : 'light');
+    
+    // Устанавливаем атрибуты
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    document.getElementById('theme-toggle').checked = currentTheme === 'dark';
+  }
+
+  // Инициализация
+  syncTheme();
+
+  // Обработчик переключения
+  document.getElementById('theme-toggle').addEventListener('change', function(e) {
+    const theme = e.target.checked ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  });
+
+  // Следим за изменениями системной темы
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
+})();
+</script> </div> </div> </div> <script type="module" src="/astro-template_v-01-test/js/Header.astro_astro_type_script_index_0_lang-Bb6SQ8IX.js"></script> <article class="markdown-body"> <div class="markdown__container"> <h1 id="куда-попадают-стили-и-скрипты-из-astro-компонентов-при-сборке">Куда попадают стили и скрипты из Astro-компонентов при сборке</h1>
+<p>При сборке Astro-проекта (astro build) система оптимизирует и распределяет ваш код особым образом. Вот что происходит с разными типами ресурсов:</p>
+<h2 id="1-стили-style-внутри-компонента">1. Стили (<code>&#x3C;style></code> внутри компонента)</h2>
+<h4 id="что-происходит">Что происходит:</h4>
+<ul>
+<li>
+<p>Все CSS/SCSS из компонентов объединяются в один или несколько оптимизированных <code>.css</code>-файлов.</p>
+</li>
+<li>
+<p>Astro автоматически удаляет неиспользуемые стили (если не указано <strong>is:global</strong>).</p>
+</li>
+<li>
+<p>Классы получают уникальные хеши (например, .header → <code>.\_header_1a2b3c</code>), чтобы избежать конфликтов.</p>
+</li>
+</ul>
+<h4 id="где-оказываются">Где оказываются:</h4>
+<p>В итоговой сборке стили попадают в:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>dist/</span></span>
+<span class="line"><span>├── assets/</span></span>
+<span class="line"><span>│   └── style.[hash].css       # Основной CSS-файл</span></span>
+<span class="line"><span>└── index.html                 # Автоматически подключается</span></span></code></pre>
+<h4 id="пример">Пример:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">&#x3C;!-- Button.astro --></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#B392F0">  .btn</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">red</span><span style="color:#E1E4E8">; }</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">></span></span></code></pre>
+<blockquote>
+<p>Превратится в <code>assets/style.abc123.css</code> с селектором <code>.\_btn_x1y2z3.</code></p>
+</blockquote>
+<h2 id="2-инлайн-скрипты-script-без-атрибутов">2. Инлайн-скрипты (<code>&#x3C;script></code> без атрибутов)</h2>
+<h4 id="что-происходит-1">Что происходит:</h4>
+<ul>
+<li>
+<p>Скрипты остаются в HTML как инлайн-код (если они маленькие).</p>
+</li>
+<li>
+<p>Для больших скриптов Astro может вынести их в отдельный .js-файл.</p>
+</li>
+</ul>
+<h4 id="где-оказываются-1">Где оказываются:</h4>
+<ul>
+<li>Либо внутри <code>&#x3C;script></code> в HTML:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#6A737D">&#x3C;!-- dist/index.html --></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Hello!"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span></code></pre>
+<ul>
+<li>Либо в <code>assets/script.[hash].js</code> (если код большой).</li>
+</ul>
+<h2 id="3-скрипты-с-атрибутами-clientload-clientidle-и-тд">3. Скрипты с атрибутами (client:load, client:idle и т.д.)</h2>
+<h4 id="что-происходит-2">Что происходит:</h4>
+<ul>
+<li>
+<p>Скрипты выносятся в отдельные .js-файлы.</p>
+</li>
+<li>
+<p>Загружаются по стратегии:</p>
+<ul>
+<li>
+<p>client:load — сразу при загрузке страницы.</p>
+</li>
+<li>
+<p>client:idle — когда браузер простаивает.</p>
+</li>
+<li>
+<p>client:visible — когда компонент появляется в viewport.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="где-оказываются-2">Где оказываются:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>dist/</span></span>
+<span class="line"><span>├── assets/</span></span>
+<span class="line"><span>│   ├── Button.[hash].js      # Отдельный JS для компонента</span></span>
+<span class="line"><span>│   └── chunks/              # Дополнительные фрагменты кода</span></span>
+<span class="line"><span>└── index.html</span></span></code></pre>
+<h2 id="4-скрипты-из-clientjs-файлов">4. Скрипты из .client.js-файлов</h2>
+<h4 id="что-происходит-3">Что происходит:</h4>
+<ul>
+<li>
+<p>Весь код из таких файлов автоматически обрабатывается Vite (как и в dev-режиме).</p>
+</li>
+<li>
+<p>Дерешится (tree-shaking) — удаляется неиспользуемый код.</p>
+</li>
+<li>
+<p>Минифицируется.</p>
+</li>
+</ul>
+<h4 id="где-оказываются-3">Где оказываются:</h4>
+<ul>
+<li>В <code>assets/[имя-файла].[hash].js</code>:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>dist/assets/ComplexButton.xyz789.js</span></span></code></pre>
+<h2 id="5-стили-и-скрипты-фреймворков-react-vue-и-др">5. Стили и скрипты фреймворков (React, Vue и др.)</h2>
+<h4 id="что-происходит-4">Что происходит:</h4>
+<ul>
+<li>
+<p>Компоненты на React/Vue/Svelte компилируются в чистый JS.</p>
+</li>
+<li>
+<p>Их стили (если есть) добавляются в общий CSS-бандл.</p>
+</li>
+<li>
+<p>Код разбивается на chunks для оптимизации загрузки.</p>
+</li>
+</ul>
+<h4 id="где-оказываются-4">Где оказываются:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>dist/</span></span>
+<span class="line"><span>├── assets/</span></span>
+<span class="line"><span>│   ├── ReactButton.[hash].js    # Код компонента</span></span>
+<span class="line"><span>│   ├── vendor.[hash].js         # Общие библиотеки (React и т.д.)</span></span>
+<span class="line"><span>│   └── style.[hash].css         # Стили</span></span>
+<span class="line"><span>└── index.html</span></span></code></pre>
+<h2 id="6-что-насчет-public-файлов">6. Что насчет public/-файлов?</h2>
+<ul>
+<li>Файлы из <code>public/</code> копируются как есть без обработки:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>public/fonts/ → dist/fonts/</span></span>
+<span class="line"><span>public/robots.txt → dist/robots.txt</span></span></code></pre>
+<h2 id="итог-куда-что-попадает">Итог: куда что попадает</h2>
+<h3 id="распределение-ресурсов-при-сборке-astro">Распределение ресурсов при сборке Astro</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Тип кода</th><th>Куда попадает</th><th>Особенности обработки</th></tr></thead><tbody><tr><td><strong>Стили в компоненте</strong></td><td><code>assets/style.[hash].css</code></td><td>Объединяются, минифицируются</td></tr><tr><td><strong>Инлайн-скрипты</strong></td><td>Остаются в HTML</td><td>Не обрабатываются</td></tr><tr><td><strong>client:load скрипты</strong></td><td><code>assets/[name].[hash].js</code></td><td>Дерешинг, минификация</td></tr><tr><td><strong>React/Vue компоненты</strong></td><td><code>assets/[name].[hash].js</code></td><td>Компиляция в JS, lazy-load</td></tr><tr><td><strong>Глобальные стили</strong></td><td><code>assets/global.[hash].css</code></td><td>Минификация</td></tr><tr><td><strong>Файлы из public/</strong></td><td>Копируются как есть</td><td>Без обработки</td></tr><tr><td><strong>Изображения</strong></td><td><code>assets/[name].[hash][ext]</code></td><td>Оптимизация</td></tr></tbody></table>
+<p><strong>Ключевые особенности:</strong></p>
+<ul>
+<li>Хеширование имен для кеширования</li>
+<li>Автоматическое объединение CSS</li>
+<li>Разделение JS по стратегиям загрузки</li>
+<li>Удаление неиспользуемого кода (tree-shaking)</li>
+</ul>
+<h2 id="как-проверить-на-практике">Как проверить на практике?</h2>
+<ol>
+<li>Запустите сборку:</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">astro</span><span style="color:#9ECBFF"> build</span></span></code></pre>
+<ol start="2">
+<li>Посмотрите содержимое папки <code>dist/</code>:</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ls</span><span style="color:#79B8FF"> -R</span><span style="color:#9ECBFF"> dist</span></span></code></pre>
+<ol start="3">
+<li>Откройте HTML-файлы — вы увидите, как Astro подключил ресурсы. <strong>Совет:</strong> Используйте astro check для анализа бандла.</li>
+</ol>
+<h2 id="оптимизации-которые-делает-astro">Оптимизации, которые делает Astro</h2>
+<ul>
+<li>
+<p><strong>Объединение CSS/JS</strong> → Меньше HTTP-запросов.</p>
+</li>
+<li>
+<p><strong>Хеширование имён файлов</strong> → Кеширование в браузере.</p>
+</li>
+<li>
+<p><strong>Tree-shaking</strong> → Удаление неиспользуемого кода.</p>
+</li>
+<li>
+<p><strong>Ленивая загрузка (client:idle/visible)</strong> → Быстрая первоначальная загрузка.</p>
+</li>
+</ul>
+<p>Теперь вы точно знаете, куда попадает каждый ваш стиль и скрипт!</p> <!-- Сюда вставится содержимое .md --> </div> </article> <footer class="footer"> <div class="footer__container"> <p>Footer</p> </div> </footer> </body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="ru" class="dark"> <head><meta charset="utf-8"><!-- Базовые иконки --><link rel="icon" href="/favicon/favicon.ico" sizes="any"><link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml"><!-- Адаптивные иконки --><link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"><link rel="manifest" href="/favicon/site.webmanifest"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css"><title>Документация для `spolers.js`</title><link rel="stylesheet" href="/astro-template_v-01-test/assets/post01-C8umMctX.css"></head> <body class="wrapper"> <div class="header"> <div class="header__container"> <div class="header__body"> <div class="header__logo"> <img src="/astro-template_v-01-test/icons/logo-light.svg" alt="Логотип"> <script>
+// Автоматическое обновление пути при смене темы
+const updateLogo = () => {
+  const theme = document.documentElement.getAttribute('data-theme') || 'light';
+  const base = '${import.meta.env.BASE_URL}';
+  document.querySelectorAll('[data-logo]').forEach(logo => {
+    logo.src = `${base}icons/logo-${theme}.svg`;
+  });
+};
+
+new MutationObserver(updateLogo).observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['data-theme']
+});
+</script> </div> <div class="header__nav"> <nav class="nav-menu"> <ul class="nav-menu__list"> <li class="nav-menu__item "> <a href="/astro-template_v-01-test/" class="nav-menu__link"> Главная </a>  </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/gallery/" class="nav-menu__link"> Галерея </a>  </li><li class="nav-menu__item has-dropdown"> <a href="/astro-template_v-01-test/news/" class="nav-menu__link" aria-expanded="false" aria-haspopup="true"> Новости<span class="_icon-_icon-arrow-right2 nav-menu__icon" aria-hidden="true"></span> </a> <ul class="nav-menu__submenu"> <li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/posts/" class="nav-menu__sublink"> Блог </a> </li><li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/news/news-history" class="nav-menu__sublink"> Новости </a> </li> </ul> </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/contacts/" class="nav-menu__link"> Контакты </a>  </li> </ul> </nav> </div> <div class="header__contacts"> <div class="contacts-icons"> <!-- Телефон --> <!--  Добавляем роль button для явного указания интерактивности --> <!-- Убедимся, что элемент фокусируем --> <a href="tel:+71234567890" class="contacts-icons__link contacts-icons__link--phone" aria-label="Позвонить по телефону" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-phone"></span> </span> <span class="visually-hidden">71234567890</span> </a> <!-- WhatsApp --> <a href="https://wa.me/71234567890" class="contacts-icons__link contacts-icons__link--whatsapp" aria-label="Написать в WhatsApp" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-whatsapp"></span> </span> <span class="visually-hidden">WhatsApp</span> </a> <!-- Telegram --> <a href="https://t.me/username" class="contacts-icons__link contacts-icons__link--telegram" aria-label="Написать в Telegram" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-telegram"></span> </span> <span class="visually-hidden">Telegram</span> </a> </div> </div> <div class="header__burger"> <span id="burgerButton" class="_icon-switch"></span> </div> </div> <div class="header__footer"> <div class="theme-toggle" data-astro-cid-lfoluaxz> <input type="checkbox" id="theme-toggle" class="theme-toggle__input" data-astro-cid-lfoluaxz> <label for="theme-toggle" class="theme-toggle__slider" data-astro-cid-lfoluaxz></label> </div> <script>
+(function() {
+  // Функция для синхронизации темы
+  function syncTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (systemDark ? 'dark' : 'light');
+    
+    // Устанавливаем атрибуты
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    document.getElementById('theme-toggle').checked = currentTheme === 'dark';
+  }
+
+  // Инициализация
+  syncTheme();
+
+  // Обработчик переключения
+  document.getElementById('theme-toggle').addEventListener('change', function(e) {
+    const theme = e.target.checked ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  });
+
+  // Следим за изменениями системной темы
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
+})();
+</script> </div> </div> </div> <script type="module" src="/astro-template_v-01-test/js/Header.astro_astro_type_script_index_0_lang-Bb6SQ8IX.js"></script> <article class="markdown-body"> <div class="markdown__container"> <h1 id="документация-для-spolersjs">Документация для <code>spolers.js</code></h1>
+<p>Модуль spolers.js реализует функционал аккордеонов (спойлеров) с анимацией на основе медиазапросов.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">&#x3C;!-- Сниппет spollers --></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> data-spollers</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"spollers"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"spollers__item"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> type</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"button"</span><span style="color:#B392F0"> data-spoller</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"spollers__title"</span><span style="color:#E1E4E8">>Заголовок спойлера&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"spollers__body"</span><span style="color:#E1E4E8">>Контент спойлера&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<p>Использует вспомогательные модули:</p>
+<ul>
+<li>slide-animations.js — для плавного раскрытия/скрытия контента.</li>
+<li>dataMediaQueries.js — для обработки адаптивных условий.</li>
+</ul>
+<h2 id="1-импорты">1. Импорты</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { _slideToggle, _slideUp, _slideDown } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "../ui/slide-animations"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { dataMediaQueries } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "../ui/dataMediaQueries"</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h2 id="2-основная-функция-spollers">2. Основная функция <code>spollers()</code></h2>
+<p>Инициализирует спойлеры на странице.</p>
+<h4 id="логика-работы">Логика работы:</h4>
+<ol>
+<li>Находит все элементы с атрибутом [data-spollers].</li>
+<li>Разделяет их на:</li>
+</ol>
+<ul>
+<li>Обычные спойлеры (без медиазапросов).</li>
+<li>Адаптивные спойлеры (с медиазапросами, например, data-spollers=“768,max”).</li>
+</ul>
+<ol start="3">
+<li>Для адаптивных спойлеров добавляет обработчик изменения размера окна.</li>
+</ol>
+<h2 id="3-вспомогательные-функции">3. Вспомогательные функции</h2>
+<blockquote>
+<p><code>initSpollers(spollersArray, matchMedia = false)</code> Инициализирует спойлеры в зависимости от условий (медиазапросов).</p>
+</blockquote>
+<h4 id="параметры">Параметры:</h4>
+<ul>
+<li>spollersArray — массив DOM-элементов-контейнеров [data-spollers].</li>
+<li>matchMedia — объект MediaQueryList (если есть медиазапрос).</li>
+</ul>
+<h4 id="действия">Действия:</h4>
+<ul>
+<li>Добавляет класс _spoller-init и обработчик клика.</li>
+<li>Если медиазапрос неактивен — удаляет инициализацию.</li>
+</ul>
+<blockquote>
+<p><code>initSpollerBody(spollersBlock, hideSpollerBody = true)</code> Настраивает контент спойлеров.</p>
+</blockquote>
+<h4 id="параметры-1">Параметры:</h4>
+<ul>
+<li>spollersBlock — контейнер [data-spollers].</li>
+<li>hideSpollerBody — скрывать ли контент (по умолчанию true).</li>
+</ul>
+<h4 id="действия-1">Действия:</h4>
+<ul>
+<li>Находит заголовки [data-spoller] внутри контейнера.</li>
+<li>Управляет атрибутом hidden и tabindex для доступности.</li>
+</ul>
+<blockquote>
+<p><code>setSpollerAction(e)</code> Обработчик клика на заголовок спойлера.</p>
+</blockquote>
+<h4 id="логика">Логика:</h4>
+<ol>
+<li>Определяет, был ли клик на [data-spoller].</li>
+<li>Проверяет:</li>
+</ol>
+<ul>
+<li>Атрибут data-one-spoller (режим “аккордеон”).</li>
+<li>Скорость анимации из data-spollers-speed (по умолчанию 500 мс).</li>
+</ul>
+<ol start="3">
+<li>Переключает состояние:</li>
+</ol>
+<ul>
+<li>Добавляет/удаляет класс <code>\_spoller-active</code>.</li>
+<li>Запускает анимацию через <code>\_slideToggle</code>.</li>
+</ul>
+<blockquote>
+<p><code>hideSpollersBody(spollersBlock)</code> Закрывает все спойлеры в блоке (для режима “аккордеон”).</p>
+</blockquote>
+<h4 id="закрытие-при-клике-вне-спойлера">Закрытие при клике вне спойлера</h4>
+<p>Если на странице есть элементы с <code>[data-spoller-close]</code>, при клике вне спойлера они закрываются.</p>
+<h2 id="4-адаптивность-и-медиазапросы">4. Адаптивность и медиазапросы</h2>
+<p>Скрипт поддерживает медиазапросы в формате:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> data-spollers</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"768,max"</span><span style="color:#E1E4E8">>...&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<ul>
+<li>768 — ширина в пикселях.</li>
+<li>max — тип запроса (max-width или min-width).</li>
+</ul>
+<h4 id="примеры">Примеры:</h4>
+<p><code>data-spollers="768,max"</code> — работает только на экранах ≤ 768px. <code>data-spollers="1024,min"</code> — работает только на экранах ≥ 1024px.</p>
+<h2 id="5-требования-к-html">5. Требования к HTML</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> data-spollers</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> data-spoller</span><span style="color:#E1E4E8">>Заголовок&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> hidden</span><span style="color:#E1E4E8">>Контент&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<h4 id="дополнительные-атрибуты">Дополнительные атрибуты:</h4>
+<ul>
+<li><code>data-one-spoller</code> Режим “аккордеон” (только один открытый спойлер).</li>
+<li><code>data-spollers-speed</code> Скорость анимации в мс (например, data-spollers-speed=“300”).</li>
+<li><code>data-spoller-close</code> Элемент, при клике вне которого спойлер закроется (например, кнопка).</li>
+</ul>
+<h2 id="6-css-классы">6. CSS-классы</h2>
+<ul>
+<li><code>_spoller-init</code> Добавляется после инициализации спойлера.</li>
+<li><code>_spoller-active</code> Открытый спойлер.</li>
+</ul>
+<h4 id="примечание">Примечание</h4>
+<p>Для управления <code>padding-top</code> и <code>padding-bottom</code> написаны переменные</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// src/ui/slide-animations.js</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> originalPaddingTop</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> target.style.paddingTop </span><span style="color:#F97583">||</span><span style="color:#9ECBFF"> "32px"</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">// Кастомное значение</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> originalPaddingBottom</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> target.style.paddingBottom </span><span style="color:#F97583">||</span><span style="color:#9ECBFF"> "32px"</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<p>Это позволяет корректно использовать паддинги внутри блока с классом <code>.spollers__item</code>.</p>
+<h2 id="7-примеры-использования">7. Примеры использования</h2>
+<h4 id="простой-спойлер">Простой спойлер:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> data-spollers</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> data-spoller</span><span style="color:#E1E4E8">>Заголовок 1&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> hidden</span><span style="color:#E1E4E8">>Контент 1&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<h4 id="аккордеон">Аккордеон:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> data-spollers</span><span style="color:#B392F0"> data-one-spoller</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> data-spoller</span><span style="color:#E1E4E8">>Заголовок 1&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> hidden</span><span style="color:#E1E4E8">>Контент 1&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> data-spoller</span><span style="color:#E1E4E8">>Заголовок 2&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> hidden</span><span style="color:#E1E4E8">>Контент 2&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<h4 id="адаптивный-спойлер">Адаптивный спойлер:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> data-spollers</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"768,max"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> data-spoller</span><span style="color:#E1E4E8">>Заголовок (только на мобильных)&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> hidden</span><span style="color:#E1E4E8">>Контент&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<h2 id="8-возможные-проблемы-и-решения">8. Возможные проблемы и решения</h2>
+<h4 id="спойлер-не-открывается">Спойлер не открывается:</h4>
+<ul>
+<li>Проверьте, есть ли атрибуты data-spollers и data-spoller.</li>
+<li>Убедитесь, что контент следует сразу после заголовка и имеет hidden.</li>
+<li>Проверьте консоль на ошибки (например, неудачный импорт модулей).</li>
+</ul>
+<h4 id="анимация-не-работает">Анимация не работает:</h4>
+<ul>
+<li>Убедитесь, что у контента есть высота (height не равна 0).</li>
+<li>Проверьте, нет ли в CSS overflow: hidden у родителя.</li>
+</ul>
+<h4 id="медиазапросы-не-применяются">Медиазапросы не применяются:</h4>
+<ul>
+<li>Проверьте синтаксис, например: data-spollers=“768,max”.</li>
+<li>Убедитесь, что dataMediaQueries.js подключен корректно.</li>
+</ul>
+<h2 id="9-совместимость">9. Совместимость</h2>
+<ul>
+<li>Работает в современных браузерах (Chrome, Firefox, Edge, Safari).</li>
+<li>Требует поддержки ES6-модулей (используйте <code>&#x3C;script type="module"></code>).</li>
+</ul>
+<h4 id="рекомендация">Рекомендация:</h4>
+<p>Для кастомизации анимации измените параметры в slide-animations.js (например, длительность).</p> <!-- Сюда вставится содержимое .md --> </div> </article> <footer class="footer"> <div class="footer__container"> <p>Footer</p> </div> </footer> </body></html>

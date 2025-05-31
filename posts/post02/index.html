@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="ru" class="dark"> <head><meta charset="utf-8"><!-- Базовые иконки --><link rel="icon" href="/favicon/favicon.ico" sizes="any"><link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml"><!-- Адаптивные иконки --><link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"><link rel="manifest" href="/favicon/site.webmanifest"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css"><title>Лучшая практика работы с Markdown/MDX и классами в Astro (официальный подход + рекомендации)</title><link rel="stylesheet" href="/astro-template_v-01-test/assets/post01-C8umMctX.css"></head> <body class="wrapper"> <div class="header"> <div class="header__container"> <div class="header__body"> <div class="header__logo"> <img src="/astro-template_v-01-test/icons/logo-light.svg" alt="Логотип"> <script>
+// Автоматическое обновление пути при смене темы
+const updateLogo = () => {
+  const theme = document.documentElement.getAttribute('data-theme') || 'light';
+  const base = '${import.meta.env.BASE_URL}';
+  document.querySelectorAll('[data-logo]').forEach(logo => {
+    logo.src = `${base}icons/logo-${theme}.svg`;
+  });
+};
+
+new MutationObserver(updateLogo).observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['data-theme']
+});
+</script> </div> <div class="header__nav"> <nav class="nav-menu"> <ul class="nav-menu__list"> <li class="nav-menu__item "> <a href="/astro-template_v-01-test/" class="nav-menu__link"> Главная </a>  </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/gallery/" class="nav-menu__link"> Галерея </a>  </li><li class="nav-menu__item has-dropdown"> <a href="/astro-template_v-01-test/news/" class="nav-menu__link" aria-expanded="false" aria-haspopup="true"> Новости<span class="_icon-_icon-arrow-right2 nav-menu__icon" aria-hidden="true"></span> </a> <ul class="nav-menu__submenu"> <li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/posts/" class="nav-menu__sublink"> Блог </a> </li><li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/news/news-history" class="nav-menu__sublink"> Новости </a> </li> </ul> </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/contacts/" class="nav-menu__link"> Контакты </a>  </li> </ul> </nav> </div> <div class="header__contacts"> <div class="contacts-icons"> <!-- Телефон --> <!--  Добавляем роль button для явного указания интерактивности --> <!-- Убедимся, что элемент фокусируем --> <a href="tel:+71234567890" class="contacts-icons__link contacts-icons__link--phone" aria-label="Позвонить по телефону" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-phone"></span> </span> <span class="visually-hidden">71234567890</span> </a> <!-- WhatsApp --> <a href="https://wa.me/71234567890" class="contacts-icons__link contacts-icons__link--whatsapp" aria-label="Написать в WhatsApp" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-whatsapp"></span> </span> <span class="visually-hidden">WhatsApp</span> </a> <!-- Telegram --> <a href="https://t.me/username" class="contacts-icons__link contacts-icons__link--telegram" aria-label="Написать в Telegram" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-telegram"></span> </span> <span class="visually-hidden">Telegram</span> </a> </div> </div> <div class="header__burger"> <span id="burgerButton" class="_icon-switch"></span> </div> </div> <div class="header__footer"> <div class="theme-toggle" data-astro-cid-lfoluaxz> <input type="checkbox" id="theme-toggle" class="theme-toggle__input" data-astro-cid-lfoluaxz> <label for="theme-toggle" class="theme-toggle__slider" data-astro-cid-lfoluaxz></label> </div> <script>
+(function() {
+  // Функция для синхронизации темы
+  function syncTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (systemDark ? 'dark' : 'light');
+    
+    // Устанавливаем атрибуты
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    document.getElementById('theme-toggle').checked = currentTheme === 'dark';
+  }
+
+  // Инициализация
+  syncTheme();
+
+  // Обработчик переключения
+  document.getElementById('theme-toggle').addEventListener('change', function(e) {
+    const theme = e.target.checked ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  });
+
+  // Следим за изменениями системной темы
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
+})();
+</script> </div> </div> </div> <script type="module" src="/astro-template_v-01-test/js/Header.astro_astro_type_script_index_0_lang-Bb6SQ8IX.js"></script> <article class="markdown-body"> <div class="markdown__container"> <h1 id="лучшая-практика-работы-с-markdownmdx-и-классами-в-astro-официальный-подход--рекомендации">Лучшая практика работы с Markdown/MDX и классами в Astro (официальный подход + рекомендации)</h1>
+<h2 id="1-официальный-подход-по-документации-astro">1. Официальный подход (по документации Astro)</h2>
+<h3 id="11-использование-layout--глобальных-стилей">1.1. Использование layout + глобальных стилей</h3>
+<h4 id="как-работает">Как работает:</h4>
+<ol>
+<li>
+<p>Создаёте layout-компонент для Markdown</p>
+</li>
+<li>
+<p>Импортируете CSS-файл</p>
+</li>
+<li>
+<p>Стилизуете стандартные HTML-элементы</p>
+</li>
+</ol>
+<h4 id="шаги">Шаги:</h4>
+<h4 id="1-создайте-layout-srclayoutsmarkdownlayoutastro">1. Создайте layout (src/layouts/MarkdownLayout.astro):</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"><span style="color:#6A737D">// Импорт стилей</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#9ECBFF"> '../styles/markdown.css'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">frontmatter</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Astro.props;</span></span>
+<span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">head</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">title</span><span style="color:#E1E4E8">>{frontmatter.title}&#x3C;/title></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">head</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">body</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">article</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"markdown-content"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">slot</span><span style="color:#E1E4E8"> /> </span><span style="color:#6A737D">&#x3C;!-- Сюда вставится содержимое .md --></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;/</span><span style="color:#85E89D">article</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">body</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">></span></span></code></pre>
+<h4 id="2-добавьте-стили-srcstylesmarkdowncss">2. Добавьте стили (src/styles/markdown.css):</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#B392F0">.markdown-content</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    max-width</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">800</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    margin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#79B8FF"> auto</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/* Стилизация элементов Markdown */</span></span>
+<span class="line"><span style="color:#B392F0">.markdown-content</span><span style="color:#85E89D"> h1</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    font-size</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2</span><span style="color:#F97583">rem</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">var</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">--color-primary</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">.markdown-content</span><span style="color:#85E89D"> img</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    border-radius</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">8</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    margin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1</span><span style="color:#F97583">rem</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h4 id="3-в-md-файле-укажите-layout">3. В .md-файле укажите layout:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#79B8FF;font-weight:bold">---</span></span>
+<span class="line"><span style="color:#E1E4E8">layout: ../layouts/MarkdownLayout.astro</span></span>
+<span class="line"><span style="color:#E1E4E8">title: "Моя статья"</span></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold"># Заголовок статьи</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Это Markdown-контент...</span></span></code></pre>
+<h3 id="12-использование-apply-для-компонентного-подхода">1.2. Использование @apply для компонентного подхода</h3>
+<p>Если используете Tailwind или PostCSS:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="css"><code><span class="line"><span style="color:#6A737D">/* markdown.css */</span></span>
+<span class="line"><span style="color:#B392F0">.markdown-content</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#79B8FF">apply</span><span style="color:#79B8FF"> prose</span><span style="color:#79B8FF"> prose-lg</span><span style="color:#79B8FF"> max-w-</span><span style="color:#E1E4E8">3</span><span style="color:#79B8FF">xl</span><span style="color:#79B8FF"> mx-auto</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">.markdown-content</span><span style="color:#85E89D"> h1</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#79B8FF">apply</span><span style="color:#79B8FF"> text-</span><span style="color:#E1E4E8">3</span><span style="color:#79B8FF">xl</span><span style="color:#79B8FF"> font-bold</span><span style="color:#79B8FF"> mb-</span><span style="color:#E1E4E8">6;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="2-если-нужны-кастомные-классы-бэм-и-др">2. Если нужны кастомные классы (БЭМ и др.)</h3>
+<h4 id="21-использование-mdx-вместо-markdown">2.1. Использование MDX вместо Markdown</h4>
+<p>MDX позволяет смешивать JSX и Markdown:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="mdx"><code><span class="line"><span style="color:#79B8FF;font-weight:bold">---</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#9ECBFF"> './article-styles.css'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF;font-weight:bold">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> className</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"article"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">h1</span><span style="color:#B392F0"> className</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"article__title"</span><span style="color:#E1E4E8">>Заголовок&#x3C;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Это </span><span style="color:#9ECBFF">**</span><span style="color:#E1E4E8">Markdown</span><span style="color:#9ECBFF">**</span><span style="color:#E1E4E8">-контент с </span><span style="color:#9ECBFF">_</span><span style="color:#E1E4E8">JSX</span><span style="color:#9ECBFF">_</span><span style="color:#E1E4E8">!</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<h4 id="плюсы">Плюсы:</h4>
+<ul>
+<li>
+<p>Полная поддержка HTML/JSX</p>
+</li>
+<li>
+<p>Можно использовать любые классы (БЭМ, CSS Modules и т.д.)</p>
+</li>
+<li>
+<p>Компонентный подход</p>
+</li>
+</ul>
+<h4 id="22-переопределение-элементов-через-components-для-mdx">2.2. Переопределение элементов через components (для MDX)</h4>
+<p>В astro.config.mjs:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#B392F0"> defineConfig</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    markdown: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        shikiConfig: { theme: </span><span style="color:#9ECBFF">"github-dark"</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">    mdx: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        components: {</span></span>
+<span class="line"><span style="color:#E1E4E8">            h1: </span><span style="color:#9ECBFF">"/src/components/Heading.astro"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">            p: </span><span style="color:#9ECBFF">"/src/components/Paragraph.astro"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        },</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<h4 id="пример-компонента-headingastro">Пример компонента (Heading.astro):</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">children</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Astro.props;</span></span>
+<span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">h1</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"article__title"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  {children}</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">></span></span></code></pre>
+<h2 id="3-критерии-выбора-подхода">3. Критерии выбора подхода</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Ситуация</th><th>Решение</th><th>Плюсы</th></tr></thead><tbody><tr><td>Простой Markdown-контент</td><td>Layout + глобальные стили</td><td>- Простота реализации Работает “из коробки”- Минимум настроек</td></tr><tr><td>Нужны кастомные классы</td><td>MDX + CSS Modules</td><td>- Поддержка БЭМ Локальные стили Гибкость именования</td></tr><tr><td>Комплексные статьи</td><td>MDX + кастомные компоненты</td><td>- Максимальный контроль Переиспользуемые компоненты Чистая разметка</td></tr><tr><td>Строгие требования к SEO</td><td>Markdown с layout</td><td>- Лучшая SEO-оптимизация Чистый HTML на выходе</td></tr><tr><td>Интерактивные элементы</td><td>MDX с React/Vue компонентами</td><td>- Возможность вставки JSX Интерактивность</td></tr></tbody></table>
+<h2 id="4-главные-рекомендации">4. Главные рекомендации</h2>
+<ol>
+<li>
+<p>Для простых статей используйте обычный Markdown с layout-стилями.</p>
+</li>
+<li>
+<p>Если нужен БЭМ/кастомные классы — переходите на MDX.</p>
+</li>
+<li>
+<p>Не усложняйте без необходимости (избегайте кастомных парсеров).</p>
+</li>
+<li>
+<p>Используйте стандартные возможности Astro — они покрывают 90% случаев.</p>
+</li>
+</ol>
+<h4 id="официальные-ресурсы">Официальные ресурсы:</h4>
+<ul>
+<li><a href="https://docs.astro.build/ru/guides/markdown-content/">Astro Markdown Guide</a></li>
+<li><a href="https://docs.astro.build/ru/guides/integrations-guide/mdx/">Astro MDX Docs</a></li>
+</ul> <!-- Сюда вставится содержимое .md --> </div> </article> <footer class="footer"> <div class="footer__container"> <p>Footer</p> </div> </footer> </body></html>

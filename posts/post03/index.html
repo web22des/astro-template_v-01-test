@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="ru" class="dark"> <head><meta charset="utf-8"><!-- Базовые иконки --><link rel="icon" href="/favicon/favicon.ico" sizes="any"><link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml"><!-- Адаптивные иконки --><link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"><link rel="manifest" href="/favicon/site.webmanifest"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css"><title>Клиентский JS внутри компонента (для интерактивности)</title><link rel="stylesheet" href="/astro-template_v-01-test/assets/post01-C8umMctX.css"></head> <body class="wrapper"> <div class="header"> <div class="header__container"> <div class="header__body"> <div class="header__logo"> <img src="/astro-template_v-01-test/icons/logo-light.svg" alt="Логотип"> <script>
+// Автоматическое обновление пути при смене темы
+const updateLogo = () => {
+  const theme = document.documentElement.getAttribute('data-theme') || 'light';
+  const base = '${import.meta.env.BASE_URL}';
+  document.querySelectorAll('[data-logo]').forEach(logo => {
+    logo.src = `${base}icons/logo-${theme}.svg`;
+  });
+};
+
+new MutationObserver(updateLogo).observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['data-theme']
+});
+</script> </div> <div class="header__nav"> <nav class="nav-menu"> <ul class="nav-menu__list"> <li class="nav-menu__item "> <a href="/astro-template_v-01-test/" class="nav-menu__link"> Главная </a>  </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/gallery/" class="nav-menu__link"> Галерея </a>  </li><li class="nav-menu__item has-dropdown"> <a href="/astro-template_v-01-test/news/" class="nav-menu__link" aria-expanded="false" aria-haspopup="true"> Новости<span class="_icon-_icon-arrow-right2 nav-menu__icon" aria-hidden="true"></span> </a> <ul class="nav-menu__submenu"> <li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/posts/" class="nav-menu__sublink"> Блог </a> </li><li class="nav-menu__subitem"> <a href="/astro-template_v-01-test/news/news-history" class="nav-menu__sublink"> Новости </a> </li> </ul> </li><li class="nav-menu__item "> <a href="/astro-template_v-01-test/contacts/" class="nav-menu__link"> Контакты </a>  </li> </ul> </nav> </div> <div class="header__contacts"> <div class="contacts-icons"> <!-- Телефон --> <!--  Добавляем роль button для явного указания интерактивности --> <!-- Убедимся, что элемент фокусируем --> <a href="tel:+71234567890" class="contacts-icons__link contacts-icons__link--phone" aria-label="Позвонить по телефону" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-phone"></span> </span> <span class="visually-hidden">71234567890</span> </a> <!-- WhatsApp --> <a href="https://wa.me/71234567890" class="contacts-icons__link contacts-icons__link--whatsapp" aria-label="Написать в WhatsApp" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-whatsapp"></span> </span> <span class="visually-hidden">WhatsApp</span> </a> <!-- Telegram --> <a href="https://t.me/username" class="contacts-icons__link contacts-icons__link--telegram" aria-label="Написать в Telegram" target="_blank" rel="noopener noreferrer" role="button" tabindex="0"> <span class="contacts-icons__icon" aria-hidden="true"> <span class="_icon-telegram"></span> </span> <span class="visually-hidden">Telegram</span> </a> </div> </div> <div class="header__burger"> <span id="burgerButton" class="_icon-switch"></span> </div> </div> <div class="header__footer"> <div class="theme-toggle" data-astro-cid-lfoluaxz> <input type="checkbox" id="theme-toggle" class="theme-toggle__input" data-astro-cid-lfoluaxz> <label for="theme-toggle" class="theme-toggle__slider" data-astro-cid-lfoluaxz></label> </div> <script>
+(function() {
+  // Функция для синхронизации темы
+  function syncTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const currentTheme = savedTheme || (systemDark ? 'dark' : 'light');
+    
+    // Устанавливаем атрибуты
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    document.getElementById('theme-toggle').checked = currentTheme === 'dark';
+  }
+
+  // Инициализация
+  syncTheme();
+
+  // Обработчик переключения
+  document.getElementById('theme-toggle').addEventListener('change', function(e) {
+    const theme = e.target.checked ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  });
+
+  // Следим за изменениями системной темы
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+      document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+    }
+  });
+})();
+</script> </div> </div> </div> <script type="module" src="/astro-template_v-01-test/js/Header.astro_astro_type_script_index_0_lang-Bb6SQ8IX.js"></script> <article class="markdown-body"> <div class="markdown__container"> <h2 id="1-клиентский-js-внутри-компонента-для-интерактивности">1. Клиентский JS внутри компонента (для интерактивности)</h2>
+<p>Используйте <code>&#x3C;script></code> тег в вашем <strong>.astro</strong> файле:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"><span style="color:#6A737D">// Серверный код (выполняется при сборке)</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> serverData</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> fetchData</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">&#x3C;!-- Разметка --></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> class</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"my-button"</span><span style="color:#E1E4E8">>Click me&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">&#x3C;!-- Клиентский JavaScript --></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#6A737D">  // Этот код выполняется в браузере</span></span>
+<span class="line"><span style="color:#E1E4E8">  document.</span><span style="color:#B392F0">querySelector</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'.my-button'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'click'</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    alert</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Button clicked!'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">&#x3C;!-- Стили --></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#B392F0">  .my-button</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">    background</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">blue</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">    color</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">white</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">></span></span></code></pre>
+<h4 id="когда-использовать">Когда использовать:</h4>
+<ul>
+<li>
+<p>Для простой интерактивности (клики, анимации)</p>
+</li>
+<li>
+<p>Если не нужны сложные состояния или фреймворки (React/Vue)</p>
+</li>
+</ul>
+<h2 id="2-отдельный-js-файл-для-сложной-логики">2. Отдельный JS-файл для сложной логики</h2>
+<p>Если кода много, вынесите его в отдельный файл:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── components/</span></span>
+<span class="line"><span>│   └── Button.astro</span></span>
+<span class="line"><span>│   └── Button.client.js  # Клиентский код</span></span></code></pre>
+<h4 id="buttonastro">Button.astro:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#6A737D">// Этот код будет загружен только в браузере</span></span>
+<span class="line"><span style="color:#E1E4E8">document.</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"DOMContentLoaded"</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    document.</span><span style="color:#B392F0">querySelector</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">".my-button"</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"click"</span><span style="color:#E1E4E8">, () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Clicked!"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<h4 id="плюсы">Плюсы:</h4>
+<ul>
+<li>
+<p>Чистая разделенность кода</p>
+</li>
+<li>
+<p>Легче поддерживать</p>
+</li>
+<li>
+<p>Можно использовать TypeScript</p>
+</li>
+</ul>
+<h2 id="3-использование-фреймворков-react-vue-и-тд">3. Использование фреймворков (React, Vue и т.д.)</h2>
+<p>Если нужен сложный интерактив, подключите фреймворк:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { useState } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> Button</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">count</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setCount</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{() </span><span style="color:#F97583">=></span><span style="color:#B392F0"> setCount</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">c</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> c </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">)}>Clicks: {count}&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h4 id="buttonastro-1">Button.astro:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Button </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './Button.tsx'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">Button</span><span style="color:#B392F0"> client:load</span><span style="color:#E1E4E8"> /></span></span></code></pre>
+<h4 id="когда-использовать-1">Когда использовать:</h4>
+<ul>
+<li>
+<p>Для сложных интерактивных компонентов</p>
+</li>
+<li>
+<p>Если нужны состояния (state)</p>
+</li>
+<li>
+<p>При интеграции с существующим React/Vue кодом</p>
+</li>
+</ul>
+<h4 id="4-лучшие-практики">4. Лучшие практики</h4>
+<ol>
+<li>
+<p>Для простого кода - пишите прямо в <code>&#x3C;script></code> в <strong>.astro файле</strong></p>
+</li>
+<li>
+<p>Для среднего кода - выносите в <strong>.client.js</strong> файлы</p>
+</li>
+<li>
+<p>Для сложных компонентов - используйте фреймворки (React/Vue/Svelte)</p>
+</li>
+<li>
+<p>Оптимизация:</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>client:load - загрузить сразу (по умолчанию)</p>
+</li>
+<li>
+<p>client:idle - загрузить когда браузер простаивает</p>
+</li>
+<li>
+<p>client:visible - загрузить когда компонент появляется в viewport</p>
+</li>
+</ul>
+<h2 id="пример-полной-структуры">Пример полной структуры</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="txt"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── components/</span></span>
+<span class="line"><span>│   ├── SimpleButton.astro          # Простой компонент с inline JS</span></span>
+<span class="line"><span>│   ├── ComplexButton.client.js     # Отдельный JS файл</span></span>
+<span class="line"><span>│   └── ReactButton.tsx            # React компонент</span></span>
+<span class="line"><span>└── pages/</span></span>
+<span class="line"><span>    └── index.astro                # Страница</span></span></code></pre>
+<h4 id="indexastro">index.astro:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="astro"><code><span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> SimpleButton </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '../components/SimpleButton.astro'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> ComplexButton </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '../components/ComplexButton.client.js'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> ReactButton </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '../components/ReactButton.tsx'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">SimpleButton</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">ComplexButton</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">ReactButton</span><span style="color:#B392F0"> client:load</span><span style="color:#E1E4E8"> /></span></span></code></pre>
+<h2 id="вывод">Вывод</h2>
+<ol>
+<li>
+<p>Немного JS - пишите прямо в компоненте <code>(&#x3C;script>)</code></p>
+</li>
+<li>
+<p>Средний JS - выносите в <strong>.client.js</strong> файлы</p>
+</li>
+<li>
+<p>Сложный JS - используйте фреймворки (React/Vue)</p>
+</li>
+<li>
+<p>Всегда указывайте стратегию загрузки (<code>client:load/idle/visible</code>)</p>
+</li>
+</ol>
+<p>Это обеспечит оптимальную производительность и чистоту кода.</p> <!-- Сюда вставится содержимое .md --> </div> </article> <footer class="footer"> <div class="footer__container"> <p>Footer</p> </div> </footer> </body></html>
